@@ -1,8 +1,155 @@
-<p>
-  user works!
-</p>
-
-<button (click)="getAllUsers()"></button>
-<div class="container">
-  <li *ngFor="let u of users"> {{u.firstName}}</li>
+<div class="container-fluid pt-5">
+  <table class="table table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th></th>
+        <th></th>
+        <th>No.</th>
+        <th>First name
+          <i class="fa fa-fw fa-sort hand" (click)="onSort('firstName')"></i>
+        </th>
+        <th>Last name
+          <i class="fa fa-fw fa-sort hand" (click)="onSort('lastName')"></i>
+        </th>
+        <th>Username
+          <i class="fa fa-fw fa-sort hand" (click)="onSort('username')"></i>
+        </th>
+        <th>Date of birth
+          <i class="fa fa-fw fa-sort hand" (click)="onSort('dateOfBirth')"></i>
+        </th>
+        <th>Address
+          <i class="fa fa-fw fa-sort hand" (click)="onSort('address')"></i>
+        </th>
+        <th>Phone number
+          <i class="fa fa-fw fa-sort hand" (click)="onSort('phoneNumber')"></i>
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr [ngClass]="{'table-danger': !u.active}" *ngFor="let u of users; let i = index">
+        <td>
+            <button type="button" *ngIf="u.active" (click)="changeUserStatus(u.userId)" title="Deactivate account" class="btn btn-sm btn-outline-danger">Deactivate</button>
+            <button type="button" *ngIf="!u.active" (click)="changeUserStatus(u.userId)" title="Activate account" class="btn btn-sm btn-outline-success">Activate</button>
+        </td>
+        <td>
+          <img src='profile-images/{{u.imagePath}}' height="100" width="100">
+        </td>
+        <td>{{i + 1}}</td>
+        <td>{{u.firstName}}</td>
+        <td>{{u.lastName}}</td>
+        <td>{{u.username}}</td>
+        <td>{{u.dateOfBirth}}</td>
+        <td>{{u.address}}</td>
+        <td>{{u.phoneNumber}}</td>
+        <td style="display: block;">
+          <div *ngFor="let r of u.roleName">
+            <span class="badge badge-primary">
+              <small>{{r}}</small>
+            </span>
+            <br>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="text-align: center;">
+    <app-pagination [(totalPages)]="totalPages" (emitPageNum)="selectPageNum($event)"></app-pagination>
+    <button class="btn btn-primary hand" (click)="showDialog = !showDialog;resetAddForm();getRoles();">New user</button>
+    <div>
+      Show:
+      <select class="form-control" [(ngModel)]="userStatus" (change)="onSelectUserStatus()">
+        <option value="all" selected="selected">All users</option>
+        <option value="active">Active only</option>
+        <option value="notactive">Not active</option>
+      </select>
+    </div>
+    <br>
+    <div class="input-group">
+        <input type="text" (keyup)="onSelectUserStatus()" class="form-control" [(ngModel)]="searchTerm" placeholder="Search" aria-describedby="basic-addon1">
+      </div>
+  </div>
 </div>
+
+
+
+<app-dialog [(visible)]="showDialog">
+  <h4>Add user</h4>
+  <hr>
+  <form (ngSubmit)="postNewUser()" class="form-horizontal" #f="ngForm">
+
+    <div class="form-group">
+      <label class="control-label" for="username">Username</label>
+      <input id="username" name="username" [ngClass]="{'not-unique':!isUnique}" type="text" placeholder="Username..." (keyup)="isUsernameUnique()" class="form-control input-md" [(ngModel)]="newUser.username" required
+        #username="ngModel" maxlength="20">
+      <span class="help-block" *ngIf="username.touched && !username.valid">
+        <i>Username is required.</i>
+      </span>
+      <span class="help-block" *ngIf="username.touched && !isUnique">
+        <i>This username is taken.</i>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="firstName">First name</label>
+      <input id="firstName" name="firstName" type="text" placeholder="First name..." class="form-control input-md" [(ngModel)]="newUser.firstName" required
+        #firstName="ngModel" maxlength="20">
+      <span class="help-block" *ngIf="firstName.touched && !firstName.valid">
+        <i>First name is required.</i>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="lastName">Last name</label>
+      <input id="lastName" name="lastName" type="text" placeholder="Last name..." class="form-control input-md" [(ngModel)]="newUser.lastName" required
+        #lastName="ngModel" maxlength="20">
+      <span class="help-block" *ngIf="lastName.touched && !lastName.valid">
+        <i>Last name is required.</i>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="address">Address</label>
+      <input id="address" name="address" type="text" placeholder="Address..." class="form-control input-md" [(ngModel)]="newUser.address" #address="ngModel"
+        maxlength="30">
+      <span class="help-block" *ngIf="address.touched && !address.valid">
+        <i>Can't contain more than 30 characters.</i>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="phoneNumber">Phone number</label>
+      <input id="phoneNumber" name="phoneNumber" type="text" placeholder="Phone number..." class="form-control input-md" [(ngModel)]="newUser.phoneNumber"
+        #phoneNumber="ngModel" maxlength="20">
+      <span class="help-block" *ngIf="phoneNumber.touched && !phoneNumber.valid">
+        <i>Can't contain more than 20 characters.</i>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="dp">Date of birth</label>
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+            <img src="assets/img/calendar-icon.png" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="rolesSelect" class="control-label">Select roles</label>
+      <select name="rolesSelect" [(ngModel)]="newUser.roleId" multiple class="form-control" id="rolesSelect" required>
+        <option *ngFor="let r of roles" value="{{r.roleId}}">{{r.name}}</option>
+      </select>
+    </div>
+
+    <hr>
+    <div style="text-align: center">
+      <button class="btn btn-primary" type="submit" [disabled]="!f.valid || !isUnique">Add</button>
+      <button type="button" (click)="showDialog = !showDialog" class="btn">Close</button>
+    </div>
+  </form>
+
+</app-dialog>
