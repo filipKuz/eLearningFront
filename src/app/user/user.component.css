@@ -1,0 +1,12 @@
+.hand {
+    cursor: pointer;
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+
+input.not-unique {
+    border: 1px solid red;
+}
+  

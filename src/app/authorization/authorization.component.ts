@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthorizationService } from './authorization.service';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-authorization',
@@ -8,7 +10,12 @@ import { AuthorizationService } from './authorization.service';
 })
 export class AuthorizationComponent implements OnInit {
 
-  constructor(private authService: AuthorizationService) { }
+  wrongUsernameOrPass: boolean;
+
+  constructor(private authService: AuthorizationService,
+    private router: Router) {
+    this.wrongUsernameOrPass = false;
+  }
 
   loginData: any = {};
 
@@ -17,18 +24,21 @@ export class AuthorizationComponent implements OnInit {
   }
 
   login() {
-    console.log(this.loginData);
     this.authService.login(this.loginData.userName, this.loginData.userPassword)
-      .subscribe(result => {
-       if (result) {
+      .subscribe((result: boolean) => {
+        if (result) {
           //login successful
-          console.log("success");
-       }else {
-         //login failed
-         console.log("fail");
-       }
-      }, error => {
-        console.log(error);
+          this.router.navigate(['/users']);
+        }
+      }, (error: Error) => {
+        if (error.toString() === 'Ilegal login') {
+          this.wrongUsernameOrPass = true;
+          console.log(error);
+        }
+        else {
+          Observable.throw(error);
+        }
+
       });
   }
 }
