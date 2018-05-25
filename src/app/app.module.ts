@@ -12,6 +12,9 @@ import { DepartmentService } from './department/department.service';
 import { AuthorizationComponent } from './authorization/authorization.component';
 import { AuthorizationService } from './authorization/authorization.service';
 import { TokenInterceptorService } from './authorization/token-interceptor.service';
+import { StudentPreExamObligationComponent } from './student-pre-exam-obligation/student-pre-exam-obligation.component';
+import { ProfessorPreExamObligationComponent } from './professor-pre-exam-obligation/professor-pre-exam-obligation.component';
+import { ProfessorPreExamObligationRecordsComponent } from './professor-pre-exam-obligation-records/professor-pre-exam-obligation-records.component';
 
 const routes: Routes = [
   /* {
@@ -34,7 +37,10 @@ const routes: Routes = [
     AppComponent,
     UserComponent,
     AuthorizationComponent,
-    DepartmentComponent
+    DepartmentComponent,
+    StudentPreExamObligationComponent,
+    ProfessorPreExamObligationComponent,
+    ProfessorPreExamObligationRecordsComponent
   ],
   imports: [
     BrowserModule,
