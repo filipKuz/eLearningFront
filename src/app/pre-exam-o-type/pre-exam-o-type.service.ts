@@ -19,7 +19,15 @@ export class PreExamOTypeService {
         return this.http.post(this.path, newType);
     }
 
-    changeType(id: number): Observable<any> {
+    getOne(id:number): Observable<any>{
+        return this.http.get(this.path + "/" + id,{ observe: 'response' });
+    }
+
+    changeType(type:any): Observable<any> {
+        return this.http.put(this.path ,type);
+    }
+
+    changeActive(id: number): Observable<any> {
         return this.http.put(this.path + "/" + id, null, {responseType: 'text'});
     }
 }

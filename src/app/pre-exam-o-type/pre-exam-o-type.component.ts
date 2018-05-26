@@ -13,35 +13,109 @@ export class PreExamOTypeComponent implements OnInit {
 
   preExamOTypes = [];
   newType = {
+    preExamObligationTypeId: 0 ,
     name: "",
-    active: "true"
+    active: true
   };
+  selectedTypeId:number;
 
   showDialog: boolean = false;
+  showEditDialog: boolean = false;
+  showRemoveDialog: boolean = false;
+  actionForModal="";
 
   @ViewChild('f') addTypeForm: NgForm;
+  @ViewChild('fe') editTypeForm: NgForm;
 
   ngOnInit() {
     this.getPreExamOTypes();
   }
 
+  onPopulateJsonType(name: string) {
+    this.newType.name = name;
+    console.log(name);
+  }
+
+  onGetById(id: number) {
+    this.preExamOTypeService.getOne(id)
+      .subscribe(
+      (response: any) => (this.onPopulateJsonType(response.body.name), console.log(response.body.name), console.log(response.body)),
+      (error) => console.log(error)
+      );
+    
+}
+
   getPreExamOTypes(){
     this.preExamOTypeService.getAll().subscribe(
-      (response) => (this.preExamOTypes = response.body, console.log(this.preExamOTypes)),
+      (response) => (this.preExamOTypes = response.body),
       (error) => console.log(error)
     );
   }
 
-  postNewType() {
+  onPostNewType() {
     this.preExamOTypeService.postNewType(this.newType).subscribe(
       response => [this.preExamOTypes.push(response), this.resetAddForm()],
       error => console.log(error)
     )
-    this.showDialog = false;
+  }
+
+  onEditType(id){
+    this.resetEditForm();
+    this.newType.preExamObligationTypeId=id;
+    this.actionForModal="edit";
+    this.onGetById(this.newType.preExamObligationTypeId);
+    this.showEditDialog =! this.showEditDialog;
+  }
+
+  onAddType(){
+    this.resetAddForm();
+    this.newType.preExamObligationTypeId=null;
+    this.newType.active=true;
+    this.showDialog =! this.showDialog;
+    this.actionForModal = "add";
   }
 
   resetAddForm() {
     this.addTypeForm.resetForm();
   }
+
+  resetEditForm(){
+    this.editTypeForm.resetForm();
+  }
+
+  onPutType(){
+    this.preExamOTypeService.changeType(this.newType).subscribe(
+      response => [this.getPreExamOTypes(), this.resetEditForm()],
+      error => console.log(error)
+    )
+  }
+
+  onRemove(id){
+    this.showRemoveDialog =! this.showRemoveDialog;
+    this.newType.preExamObligationTypeId = id;
+  }
+
+  onRemoveConfirmed(){
+    this.preExamOTypeService.changeActive(this.newType.preExamObligationTypeId).subscribe(
+      response => [this.getPreExamOTypes()],
+      error => console.log(error)
+    )
+    this.showRemoveDialog =! this.showRemoveDialog;
+  }
+
+  onSubmit() {
+    if (this.actionForModal === 'edit') {
+      console.log(this.newType.name);
+      this.onPutType();
+      this.resetEditForm();
+      this.showEditDialog = !this.showEditDialog;
+    }
+    if(this.actionForModal === 'add'){
+      this.onPostNewType();
+      this.resetAddForm();
+      this.showDialog =! this.showDialog;
+    }
+}
+
 
 }
