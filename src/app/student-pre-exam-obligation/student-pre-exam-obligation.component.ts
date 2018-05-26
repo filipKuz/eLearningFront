@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PreExamObligationRecordsService } from './pre-exam-obligation-records.service';
 
 @Component({
   selector: 'app-student-pre-exam-obligation',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentPreExamObligationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private preExamObligationRecordsService: PreExamObligationRecordsService) { }
+
+  userId: number = 1;
+  courseId: number =1;
+  preExamORecs=[];
 
   ngOnInit() {
+    this.getPreExamORecByUserIdAndCourseId(1,1);
+  }
+
+  getPreExamORecByUserIdAndCourseId(userId,courseId){
+    this.preExamObligationRecordsService.getAllByStudentAndCourse(this.userId,this.courseId).subscribe(
+      (response) => (this.preExamORecs = response.body, console.log(this.preExamORecs)),
+      (error) => console.log(error)
+    );
   }
 
 }

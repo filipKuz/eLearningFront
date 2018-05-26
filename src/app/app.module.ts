@@ -22,6 +22,9 @@ import { PaginationComponent } from './pagination/pagination.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { DialogComponent } from './dialog/dialog.component';
 import { RoleService } from './shared/role.service';
+import { PreExamObligationRecordsService } from './student-pre-exam-obligation/pre-exam-obligation-records.service';
+import { PreExamOTypeComponent } from './pre-exam-o-type/pre-exam-o-type.component';
+import { PreExamOTypeService } from './pre-exam-o-type/pre-exam-o-type.service';
 
 const routes: Routes = [
   /* {
@@ -54,7 +57,8 @@ const routes: Routes = [
     ProfessorPreExamObligationRecordsComponent,
     UserProfileComponent,
     PaginationComponent,
-    DialogComponent
+    DialogComponent,
+    PreExamOTypeComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +67,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(routes), NgbModule.forRoot()
   ],
-  providers: [UserService, DepartmentService, AuthorizationService, TokenInterceptorService, JwtInterceptorService, {
+  providers: [UserService, DepartmentService, AuthorizationService, TokenInterceptorService, JwtInterceptorService, PreExamObligationRecordsService,PreExamOTypeService,  {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
     multi:true
