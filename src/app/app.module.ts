@@ -43,6 +43,10 @@ const routes: Routes = [
   {
     path: 'profile',
     component: UserProfileComponent
+  },
+  {
+    path: 'preExamOTypes',
+    component: PreExamOTypeComponent
   }
 ]
 
