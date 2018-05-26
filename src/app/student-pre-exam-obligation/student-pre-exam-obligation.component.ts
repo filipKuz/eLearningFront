@@ -12,15 +12,16 @@ export class StudentPreExamObligationComponent implements OnInit {
 
   userId: number = 1;
   courseId: number =1;
+  total: number = 0;
   preExamORecs=[];
 
   ngOnInit() {
-    this.getPreExamORecByUserIdAndCourseId(1,1);
+    this.getPreExamORecByUserIdAndCourseId(this.userId,this.courseId);
   }
 
   getPreExamORecByUserIdAndCourseId(userId,courseId){
     this.preExamObligationRecordsService.getAllByStudentAndCourse(this.userId,this.courseId).subscribe(
-      (response) => (this.preExamORecs = response.body, console.log(this.preExamORecs)),
+      (response) => (this.preExamORecs = response.body),
       (error) => console.log(error)
     );
   }

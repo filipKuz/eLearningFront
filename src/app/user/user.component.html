@@ -1,4 +1,19 @@
 <div class="container-fluid pt-5">
+    <div style="text-align: center;">
+        <div class="container-fluid mb">
+            
+          <div class="input-group">
+              Show:
+            <select class="form-control col-md-4 mr ml" [(ngModel)]="userStatus" (change)="onSelectUserStatus()">
+             <option value="all" selected="selected">All users</option>
+             <option value="active">Active only</option>
+             <option value="notactive">Not active</option>
+            </select>
+            <input type="text" (keyup)="onSelectUserStatus()" class="form-control col-md-4 mr" [(ngModel)]="searchTerm" placeholder="Search" aria-describedby="basic-addon1">
+          </div>
+        </div>
+    </div>
+  
   <table class="table table-hover">
     <thead class="thead-light">
       <tr>
@@ -53,22 +68,14 @@
       </tr>
     </tbody>
   </table>
-  <div style="text-align: center;">
-    <app-pagination [(totalPages)]="totalPages" (emitPageNum)="selectPageNum($event)"></app-pagination>
-    <button class="btn btn-primary hand" (click)="showDialog = !showDialog;resetAddForm();getRoles();">New user</button>
-    <div>
-      Show:
-      <select class="form-control" [(ngModel)]="userStatus" (change)="onSelectUserStatus()">
-        <option value="all" selected="selected">All users</option>
-        <option value="active">Active only</option>
-        <option value="notactive">Not active</option>
-      </select>
-    </div>
-    <br>
-    <div class="input-group">
-        <input type="text" (keyup)="onSelectUserStatus()" class="form-control" [(ngModel)]="searchTerm" placeholder="Search" aria-describedby="basic-addon1">
-      </div>
-  </div>
+  <div>
+
+  <button class="btn btn-primary hand pull-right" (click)="showDialog = !showDialog;resetAddForm();getRoles();">New user</button>
+  <app-pagination class="" [(totalPages)]="totalPages" (emitPageNum)="selectPageNum($event)"></app-pagination>
+  
+  
+  
+  
 </div>
 
 
