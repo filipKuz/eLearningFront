@@ -9,6 +9,9 @@ export class UserProfileComponent implements OnInit {
 
   constructor() { }
 
+  userId:number = 1;
+  courseId: number = 1;
+
   ngOnInit() {
   }
 

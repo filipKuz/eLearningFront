@@ -33,17 +33,15 @@ export class PreExamOTypeComponent implements OnInit {
 
   onPopulateJsonType(name: string) {
     this.newType.name = name;
-    console.log(name);
   }
 
   onGetById(id: number) {
     this.preExamOTypeService.getOne(id)
       .subscribe(
-      (response: any) => (this.onPopulateJsonType(response.body.name), console.log(response.body.name), console.log(response.body)),
+      (response: any) => (this.onPopulateJsonType(response.body.name)),
       (error) => console.log(error)
       );
-    
-}
+    }
 
   getPreExamOTypes(){
     this.preExamOTypeService.getAll().subscribe(
@@ -105,7 +103,6 @@ export class PreExamOTypeComponent implements OnInit {
 
   onSubmit() {
     if (this.actionForModal === 'edit') {
-      console.log(this.newType.name);
       this.onPutType();
       this.resetEditForm();
       this.showEditDialog = !this.showEditDialog;
@@ -115,7 +112,7 @@ export class PreExamOTypeComponent implements OnInit {
       this.resetAddForm();
       this.showDialog =! this.showDialog;
     }
-}
+  }
 
 
 }

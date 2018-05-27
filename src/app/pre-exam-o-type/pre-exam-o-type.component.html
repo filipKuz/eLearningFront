@@ -50,8 +50,8 @@
     <div class="form-group">
       <label class="control-label" for="name">Name</label>
       <input id="editName" name="editName" type="text" [(value)]="newType.name" placeholder="name..." class="form-control input-md" [(ngModel)]="newType.name"  required
-        #name="ngModel" maxlength="20" >
-      <span class="help-block" *ngIf="name.touched && !name.valid">
+        #editName="ngModel" maxlength="20" >
+      <span class="help-block" *ngIf="editName.touched && !editName.valid">
         <i>name is required.</i>
       </span>
     </div>
