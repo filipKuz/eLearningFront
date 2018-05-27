@@ -16,6 +16,6 @@ export class PreExamObligationRecordsService {
     }
 
     getAllByStudentAndCourse(sId: number, cId: number): Observable<any> {
-        return this.http.get(this.path + "/student"+ sId + "/" + "course" + cId, { observe: 'response' })
+        return this.http.get(this.path + "/student"+ "/" + sId + "/" + "course" + "/" + cId, { observe: 'response' })
     }
 }

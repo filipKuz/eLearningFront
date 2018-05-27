@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { PreExamObligationervice } from './pre-exam-obligation.service';
+import { PreExamOTypeService } from '../pre-exam-o-type/pre-exam-o-type.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -9,9 +10,11 @@ import { NgForm } from '@angular/forms';
 })
 export class ProfessorPreExamObligationComponent implements OnInit {
 
-  constructor(private preExamObligationService: PreExamObligationervice) { }
+  constructor(private preExamObligationService: PreExamObligationervice,
+              private typeService: PreExamOTypeService) { }
 
   preExamObligations=[];
+  types=[];
   newPreExamObligation={
     preExamOId:0,
     name:"",
@@ -38,6 +41,8 @@ export class ProfessorPreExamObligationComponent implements OnInit {
     this.getPreExamObligationByCourseId(this.courseId);
   }
 
+  
+
   getPreExamObligationByCourseId(id:number){
     this.preExamObligationService.getAllByCourse(id).subscribe(
       (response) => (this.preExamObligations = response.body),
@@ -46,6 +51,12 @@ export class ProfessorPreExamObligationComponent implements OnInit {
 
   }
 
+  getTypes() {
+    this.typeService.getAll().subscribe(
+      (response) => (this.types = response.body),
+      (error) => console.log(error)
+    );
+  }
 
   onRemove(id){
     this.showRemoveDialog =! this.showRemoveDialog;
