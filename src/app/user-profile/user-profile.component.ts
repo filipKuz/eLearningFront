@@ -45,6 +45,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     private roleService: RoleService) {
   }
 
+  userId:number = 1;
+  courseId: number = 1;
+
   ngOnInit() {
     this.getRoles();
     this.sub = this.route.params.subscribe(params => {

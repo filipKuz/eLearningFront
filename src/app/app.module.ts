@@ -13,6 +13,9 @@ import { DepartmentService } from './department/department.service';
 import { AuthorizationComponent } from './authorization/authorization.component';
 import { AuthorizationService } from './authorization/authorization.service';
 import { TokenInterceptorService } from './authorization/token-interceptor.service';
+import { StudentPreExamObligationComponent } from './student-pre-exam-obligation/student-pre-exam-obligation.component';
+import { ProfessorPreExamObligationComponent } from './professor-pre-exam-obligation/professor-pre-exam-obligation.component';
+import { ProfessorPreExamObligationRecordsComponent } from './professor-pre-exam-obligation-records/professor-pre-exam-obligation-records.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { JwtInterceptorService } from './authorization/jwt-interceptor.service';
 import { PaginationComponent } from './pagination/pagination.component';
@@ -21,6 +24,10 @@ import { DialogComponent } from './dialog/dialog.component';
 import { RoleService } from './shared/role.service';
 import { UserProfileService } from './user-profile/user-profile.service';
 import { AuthGuard } from './auth-guard.guard';
+import { PreExamObligationRecordsService } from './student-pre-exam-obligation/pre-exam-obligation-records.service';
+import { PreExamOTypeComponent } from './pre-exam-o-type/pre-exam-o-type.component';
+import { PreExamOTypeService } from './pre-exam-o-type/pre-exam-o-type.service';
+import { PreExamObligationervice } from './professor-pre-exam-obligation/pre-exam-obligation.service';
 
 const routes: Routes = [
   /* {
@@ -41,6 +48,10 @@ const routes: Routes = [
     path: 'profile/:id',
     component: UserProfileComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'preExamOTypes',
+    component: PreExamOTypeComponent
   }
 ]
 
@@ -50,9 +61,13 @@ const routes: Routes = [
     UserComponent,
     AuthorizationComponent,
     DepartmentComponent,
+    StudentPreExamObligationComponent,
+    ProfessorPreExamObligationComponent,
+    ProfessorPreExamObligationRecordsComponent,
     UserProfileComponent,
     PaginationComponent,
-    DialogComponent
+    DialogComponent,
+    PreExamOTypeComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +76,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(routes), NgbModule.forRoot()
   ],
-  providers: [UserService, DepartmentService, AuthorizationService, TokenInterceptorService, JwtInterceptorService, {
+  providers: [UserService, DepartmentService, AuthorizationService, TokenInterceptorService, JwtInterceptorService, PreExamObligationRecordsService,PreExamOTypeService,PreExamObligationervice,  {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
     multi:true

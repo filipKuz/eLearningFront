@@ -10,3 +10,18 @@ input.not-unique {
     border: 1px solid red;
 }
   
+.ml{
+    margin-left: 20px; 
+}
+
+.mr{
+    margin-right: 20px;
+}
+
+.mb{
+    margin-bottom: 20px; 
+}
+
+.wid{
+    width: 300px;
+}
