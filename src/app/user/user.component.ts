@@ -2,6 +2,7 @@ import { Component, OnInit, ViewContainerRef, ViewChild } from '@angular/core';
 import { UserService } from './user.service';
 import { NgForm } from '@angular/forms';
 import { RoleService } from '../shared/role.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -11,7 +12,8 @@ import { RoleService } from '../shared/role.service';
 export class UserComponent implements OnInit {
 
   constructor(private userService: UserService,
-              private roleService: RoleService) { }
+    private roleService: RoleService,
+    private router: Router) { }
   users = [];
   roles = [];
   newUser = {
@@ -44,9 +46,9 @@ export class UserComponent implements OnInit {
   }
 
   onSelectUserStatus() {
-    if(this.userStatus === "all") {this.getAllUsers()};
-    if(this.userStatus === "active") {this.getActiveUsers()};
-    if(this.userStatus === "notactive") {this.getNotActiveUsers()};
+    if (this.userStatus === "all") { this.getAllUsers() };
+    if (this.userStatus === "active") { this.getActiveUsers() };
+    if (this.userStatus === "notactive") { this.getNotActiveUsers() };
   }
 
   getAllUsers() {
@@ -71,10 +73,12 @@ export class UserComponent implements OnInit {
   }
 
   isUsernameUnique() {
-    this.userService.isUsernameUnique(this.newUser.username).subscribe(
-      response => this.isUnique = response,
-      error => console.log(error)
-    )
+    if (this.newUser.username.length > 0) {
+      this.userService.isUsernameUnique(this.newUser.username, 'add', '').subscribe(
+        response => this.isUnique = response,
+        error => console.log(error)
+      )
+    }
   }
 
   postNewUser() {
@@ -108,6 +112,10 @@ export class UserComponent implements OnInit {
     this.isAscending ? this.sortDirection = "asc" : this.sortDirection = "desc";
     this.sortParam = sortParam;
     this.onSelectUserStatus();
+  }
+
+  onSearch(term: string) {
+    this.router.navigate(['profile', term]);
   }
 
   resetAddForm() {

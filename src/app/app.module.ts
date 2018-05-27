@@ -19,6 +19,8 @@ import { PaginationComponent } from './pagination/pagination.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { DialogComponent } from './dialog/dialog.component';
 import { RoleService } from './shared/role.service';
+import { UserProfileService } from './user-profile/user-profile.service';
+import { AuthGuard } from './auth-guard.guard';
 
 const routes: Routes = [
   /* {
@@ -32,11 +34,13 @@ const routes: Routes = [
   },
   {
     path: 'users',
-    component: UserComponent
+    component: UserComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path: 'profile',
-    component: UserProfileComponent
+    path: 'profile/:id',
+    component: UserProfileComponent,
+    canActivate: [AuthGuard]
   }
 ]
 
@@ -66,7 +70,7 @@ const routes: Routes = [
     provide: HTTP_INTERCEPTORS,
     useClass: JwtInterceptorService,
     multi: true
-  }, RoleService
+  }, RoleService, UserProfileService, AuthGuard
 ],
   bootstrap: [AppComponent]
 })

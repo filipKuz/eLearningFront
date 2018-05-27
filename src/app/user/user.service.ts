@@ -11,6 +11,10 @@ export class UserService {
 
     constructor(private http: HttpClient) { }
 
+    getUserById(id:number) {
+        return this.http.get(this.path + "/" + id);
+    }
+
     getAll(page: number, size: number, sortParam: string, sortDirection: string, term: string): Observable<any> {
         return this.http.get(this.path + "?term=" +  term + "&page=" + page + "&size=" + size + "&sort=" + sortParam + "," + sortDirection, { observe: 'response' })
     }
@@ -27,8 +31,8 @@ export class UserService {
         return this.http.post(this.path + "/sign-up", newUser);
     }
 
-    isUsernameUnique(username: string): Observable<any> {
-        return this.http.post(this.path + "/username-unique/" + username, null);
+    isUsernameUnique(username: string, edit: string, oldUsername: string): Observable<any> {
+        return this.http.post(this.path + "/username-unique/" + username + "/" + edit + "/" + oldUsername, null);
     }
 
     changeUserStatus(id: number): Observable<any> {

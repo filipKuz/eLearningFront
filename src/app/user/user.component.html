@@ -27,18 +27,18 @@
       </tr>
     </thead>
     <tbody>
-      <tr [ngClass]="{'table-danger': !u.active}" *ngFor="let u of users; let i = index">
+      <tr [ngClass]="{'table-danger': !u.active}" *ngFor="let u of users; let i = index" >
         <td>
             <button type="button" *ngIf="u.active" (click)="changeUserStatus(u.userId)" title="Deactivate account" class="btn btn-sm btn-outline-danger">Deactivate</button>
             <button type="button" *ngIf="!u.active" (click)="changeUserStatus(u.userId)" title="Activate account" class="btn btn-sm btn-outline-success">Activate</button>
         </td>
         <td>
-          <img src='profile-images/{{u.imagePath}}' height="100" width="100">
+          <img src='assets/img/{{u.imagePath}}' height="100" width="100">
         </td>
         <td>{{i + 1}}</td>
         <td>{{u.firstName}}</td>
         <td>{{u.lastName}}</td>
-        <td>{{u.username}}</td>
+        <td><a class="hand" [routerLink]="['/profile', u.userId]" title="Go to user profile.">{{u.username}}</a></td>
         <td>{{u.dateOfBirth}}</td>
         <td>{{u.address}}</td>
         <td>{{u.phoneNumber}}</td>

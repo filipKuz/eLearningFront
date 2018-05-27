@@ -1,109 +1,196 @@
 <div class="container pt-5">
-  <div class="row my-2">
-      <div class="col-lg-8 order-lg-2">
-          <ul class="nav nav-tabs">
-              <li class="nav-item">
-                  <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
-              </li>
-              <li class="nav-item">
-                  <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
-              </li>
-          </ul>
-          <div class="tab-content py-4">
-              <div class="tab-pane active" id="profile">
-                  <h5 class="mb-3">User Profile</h5>
-                  <div class="row">
-                      <div class="col-md-6">
-                          <h6>First name</h6>
-                          <p>
-                              name
-                          </p>
-                          <h6>Last name</h6>
-                          <p>
-                              ln
-                          </p>
-                          <h6>Username</h6>
-                          <p>
-                              uname
-                          </p>
-                          <h6>Date of birth</h6>
-                          <p>
-                              date
-                          </p>
-                          <h6>Phone number</h6>
-                          <p>
-                              ph
-                          </p>
-                      </div>
-                     
-                  </div>
-                  <!--/row-->
-              </div>
-              <div class="tab-pane" id="edit">
-                  <form role="form">
-                      <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">First name</label>
-                          <div class="col-lg-9">
-                              <input class="form-control" type="text" value="Jane">
-                          </div>
-                      </div>
-                      <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">Last name</label>
-                          <div class="col-lg-9">
-                              <input class="form-control" type="text" value="Bishop">
-                          </div>
-                      </div>
-                      <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">Username</label>
-                          <div class="col-lg-9">
-                              <input class="form-control" type="text" value="email@gmail.com">
-                          </div>
-                      </div>
-                      <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">Phone number</label>
-                          <div class="col-lg-9">
-                              <input class="form-control" type="text" value="">
-                          </div>
-                      </div>
-                      <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">Address</label>
-                          <div class="col-lg-9">
-                              <input class="form-control" type="text" value="" placeholder="Street">
-                          </div>
-                      </div>
-                      <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">Role</label>
-                          <div class="col-lg-9">
-                              <select id="user_time_zone" class="form-control" size="0">
-                                  <option value="Hawaii">(GMT-10:00) Hawaii</option>
-                                  <option value="Alaska">(GMT-09:00) Alaska</option>
-                                  <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
-                                  <option value="Arizona">(GMT-07:00) Arizona</option>
-                                  <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
-                                  <option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>
-                                  <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
-                                  <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
-                              </select>
-                          </div>
-                      </div>
-                      <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label"></label>
-                          <div class="col-lg-9">
-                              <input type="reset" class="btn btn-secondary" value="Cancel">
-                              <input type="button" class="btn btn-primary" value="Save Changes">
-                          </div>
-                      </div>
-                  </form>
-              </div>
-          </div>
-      </div>
-      <div class="col-lg-4 order-lg-1 text-center">
-          <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
-          <h6 class="mt-2">Upload a different photo</h6>
-          <label class="custom-file">
-              <input type="file" id="file" class="custom-file-input">
-              <span class="custom-file-control">Choose file</span>
-          </label>
-      </div>
-  </div>
+    <div class="row my-2">
+        <div class="col-lg-8 order-lg-2">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#psw" data-toggle="tab" class="nav-link">Change password</a>
+                </li>
+            </ul>
+            <div class="tab-content py-4">
+                <div class="tab-pane active" id="profile">
+                    <h5 class="mb-3">User Profile</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>First name</h6>
+                            <p>
+                                {{user.firstName}}
+                            </p>
+                            <h6>Last name</h6>
+                            <p>
+                                {{user.lastName}}
+                            </p>
+                            <h6>Username</h6>
+                            <p>
+                                {{user.username}}
+                            </p>
+                            <h6>Date of birth</h6>
+                            <p>
+                                {{dateOfBirth}}
+                            </p>
+                            <h6>Phone number</h6>
+                            <p>
+                                {{user.phoneNumber}}
+                            </p>
+                            <h6>Roles</h6>
+                            <p>
+                                {{user.roleName}}
+                            </p>
+                        </div>
+
+                    </div>
+                    <!--/row-->
+                </div>
+                <div class="tab-pane" id="psw">
+                    <div class="alert alert-info alert-dismissible fade show" *ngIf="showMessage">
+                        <button type="button" class="close" data-dismiss="alert" (click)="showMessage = false;">&times;</button>
+                        {{ messagge }}
+                    </div>
+                    <form role="form" #fPsw="ngForm" (ngSubmit)="changePassword()">
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Old password</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="password" id="oldPassword" name="oldPassword" required #oldPassword="ngModel" [(ngModel)]="oldPass">
+                                <span class="help-block" *ngIf="oldPassword.touched && !oldPassword.valid">
+                                    <i>This field is required.</i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">New password</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" (keyup)="checkPasswords()" type="password" id="newPassword" name="newPassword" required #newPassword="ngModel" [(ngModel)]="newPass">
+                                <span class="help-block" *ngIf="newPassword.touched && !newPassword.valid">
+                                    <i>This field is required.</i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Repeat password</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="password" required #repeatedPassword="ngModel" id="repeatedPassword" name="repeatedPassword"
+                                    [(ngModel)]="repeatedPass" (keyup)="checkPasswords()">
+                                <span class="help-block" *ngIf="repeatedPassword.touched && !repeatedPassword.valid">
+                                    <i>This field is required.</i>
+                                </span>
+                                <span class="help-block" *ngIf="!matchingPasswords">
+                                    <i>Passwords are not the same.</i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label"></label>
+                            <div class="col-lg-9">
+                                <input type="reset" class="btn btn-secondary" value="Cancel">
+                                <input type="submit" class="btn btn-primary" [disabled]="!fPsw.valid || !matchingPasswords" value="Save Changes">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="edit">
+                    <form role="form" #f="ngForm" (ngSubmit)="userEdit()">
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">First name</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="text" [(value)]="user.firstName" id="firstName" name="firstName" required #firstName="ngModel"
+                                    maxlength="20" [(ngModel)]="user.firstName">
+                                <span class="help-block" *ngIf="firstName.touched && !firstName.valid">
+                                    <i>First name is required.</i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Last name</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="text" [(value)]="user.lastName" id="lastName" name="lastName" required #lastName="ngModel"
+                                    maxlength="20" [(ngModel)]="user.lastName">
+                                <span class="help-block" *ngIf="lastName.touched && !lastName.valid">
+                                    <i>Last name is required.</i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Username</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="text" [(value)]="user.username" required #username="ngModel" id="username" name="username"
+                                    [(ngModel)]="user.username" maxlength="20" (keyup)="isUsernameUnique()" [ngClass]="{'not-unique':!isUnique}">
+                                <span class="help-block" *ngIf="username.touched && !username.valid">
+                                    <i>Username is required.</i>
+                                </span>
+                                <span class="help-block" *ngIf="username.touched && !isUnique">
+                                    <i>This username is taken.</i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Phone number</label>
+                            <div class="col-lg-9">
+                                <input id="phoneNumber" name="phoneNumber" #phoneNumber="ngModel" [(ngModel)]="user.phoneNumber" maxlength="20" class="form-control"
+                                    type="text" [(value)]="user.phoneNumber">
+                                <span class="help-block" *ngIf="phoneNumber.touched && !phoneNumber.valid">
+                                    <i>Can't contain more than 20 characters.</i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Address</label>
+                            <div class="col-lg-9">
+                                <input id="address" name="address" class="form-control" type="text" [(value)]="user.address" maxlength="30" [(ngModel)]="user.address"
+                                    #address="ngModel">
+                                <span class="help-block" *ngIf="address.touched && !address.valid">
+                                    <i>Can't contain more than 30 characters.</i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Date od birth</label>
+                            <div class="col-lg-9">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                                            <img src="assets/img/calendar-icon.png" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Roles
+                                <br>
+                                <small>
+                                    <i>({{user.roleName}})</i>
+                                </small>
+                            </label>
+                            <div class="col-lg-9">
+                                <select name="rolesSelect" [(ngModel)]="user.roleId" multiple class="form-control" id="rolesSelect" required>
+                                    <option class="selected" *ngFor="let r of roles" value="{{r.roleId}}">{{r.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label"></label>
+                            <div class="col-lg-9">
+                                <input type="reset" class="btn btn-secondary" value="Cancel">
+                                <input type="submit" class="btn btn-primary" [disabled]="!f.valid || !isUnique" value="Save Changes">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 order-lg-1 text-center">
+            <img src="assets/img/{{user.imagePath}}" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+            <h6 class="mt-2">Upload a different photo</h6>
+            <label class="custom-file">
+                <input type="file" id="file" class="custom-file-input" (change)="fileChange($event)">
+                <span class="custom-file-control">Choose file</span>
+            </label>
+        </div>
+    </div>
 </div>
