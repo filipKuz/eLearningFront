@@ -6,13 +6,11 @@ import 'rxjs/add/operator/do';
 import { Router } from '@angular/router';
 
 @Injectable()
-export class JwtInterceptorService implements HttpInterceptor{
+export class JwtInterceptorService implements HttpInterceptor {
 
   constructor(public auth: AuthorizationService,
               private router: Router) { }
-  
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
     return next.handle(request).do((event: HttpEvent<any>) => {
       if (event instanceof HttpResponse) {
         // do stuff with response if you want
@@ -21,7 +19,7 @@ export class JwtInterceptorService implements HttpInterceptor{
       if (err instanceof HttpErrorResponse) {
         if (err.status === 401) {
           this.router.navigate(['/login']);
-        }else if(err.status === 403) {
+        } else if (err.status === 403) {
           alert("Unauthorized!");
         }
       }

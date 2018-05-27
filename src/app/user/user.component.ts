@@ -44,9 +44,9 @@ export class UserComponent implements OnInit {
   }
 
   onSelectUserStatus() {
-    if(this.userStatus === "all") {this.getAllUsers()};
-    if(this.userStatus === "active") {this.getActiveUsers()};
-    if(this.userStatus === "notactive") {this.getNotActiveUsers()};
+    if (this.userStatus === "all") { this.getAllUsers(); }
+    if (this.userStatus === "active") { this.getActiveUsers(); }
+    if (this.userStatus === "notactive") { this.getNotActiveUsers(); }
   }
 
   getAllUsers() {
@@ -74,7 +74,7 @@ export class UserComponent implements OnInit {
     this.userService.isUsernameUnique(this.newUser.username).subscribe(
       response => this.isUnique = response,
       error => console.log(error)
-    )
+    );
   }
 
   postNewUser() {
@@ -88,7 +88,7 @@ export class UserComponent implements OnInit {
     this.userService.postNewUser(this.newUser).subscribe(
       response => [this.users.push(response), this.resetAddForm()],
       error => console.log(error)
-    )
+    );
   }
 
   changeUserStatus(id: number) {
@@ -119,7 +119,7 @@ export class UserComponent implements OnInit {
     this.roleService.getAllRoles().subscribe(
       response => this.roles = response,
       error => console.log(error)
-    )
+    );
   }
 
 }
