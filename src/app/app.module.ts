@@ -25,6 +25,7 @@ import { RoleService } from './shared/role.service';
 import { PreExamObligationRecordsService } from './student-pre-exam-obligation/pre-exam-obligation-records.service';
 import { PreExamOTypeComponent } from './pre-exam-o-type/pre-exam-o-type.component';
 import { PreExamOTypeService } from './pre-exam-o-type/pre-exam-o-type.service';
+import { PreExamObligationervice } from './professor-pre-exam-obligation/pre-exam-obligation.service';
 
 const routes: Routes = [
   /* {
@@ -43,6 +44,10 @@ const routes: Routes = [
   {
     path: 'profile',
     component: UserProfileComponent
+  },
+  {
+    path: 'preExamOTypes',
+    component: PreExamOTypeComponent
   }
 ]
 
@@ -67,7 +72,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(routes), NgbModule.forRoot()
   ],
-  providers: [UserService, DepartmentService, AuthorizationService, TokenInterceptorService, JwtInterceptorService, PreExamObligationRecordsService,PreExamOTypeService,  {
+  providers: [UserService, DepartmentService, AuthorizationService, TokenInterceptorService, JwtInterceptorService, PreExamObligationRecordsService,PreExamOTypeService,PreExamObligationervice,  {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
     multi:true

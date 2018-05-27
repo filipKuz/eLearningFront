@@ -5,9 +5,9 @@ import { Observable } from "rxjs/Observable";
 
 
 @Injectable()
-export class PreExamOTypeService {
+export class PreExamObligationervice {
 
-    private readonly path = "/api/pre-exam-obligation-types";
+    private readonly path = "/api/pre-exam-obligations";
 
     constructor(private http: HttpClient) { }
 
@@ -15,7 +15,7 @@ export class PreExamOTypeService {
         return this.http.get(this.path, { observe: 'response' })
     }
 
-    postNewType(newType: any): Observable<any> {
+    postNewObligation(newType: any): Observable<any> {
         return this.http.post(this.path, newType);
     }
 
@@ -23,11 +23,15 @@ export class PreExamOTypeService {
         return this.http.get(this.path + "/" + id,{ observe: 'response' });
     }
 
-    changeType(type:any): Observable<any> {
+    changeObligation(type:any): Observable<any> {
         return this.http.put(this.path ,type);
     }
 
     changeActive(id: number): Observable<any> {
         return this.http.put(this.path + "/" + id, null, {responseType: 'text'});
+    }
+
+    getAllByCourse(cId: number): Observable<any> {
+        return this.http.get(this.path + "/" + "course" + "/"+ cId, { observe: 'response' })
     }
 }

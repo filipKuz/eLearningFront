@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PreExamObligationRecordsService } from './pre-exam-obligation-records.service';
 
 @Component({
@@ -10,19 +10,28 @@ export class StudentPreExamObligationComponent implements OnInit {
 
   constructor(private preExamObligationRecordsService: PreExamObligationRecordsService) { }
 
-  userId: number = 1;
-  courseId: number =1;
+  @Input() userId: number;
+  @Input() courseId: number;
+  total: number = 0;
+  totalMax: number = 0;
   preExamORecs=[];
 
   ngOnInit() {
-    this.getPreExamORecByUserIdAndCourseId(1,1);
+    this.getPreExamORecByUserIdAndCourseId(this.userId,this.courseId);
   }
 
   getPreExamORecByUserIdAndCourseId(userId,courseId){
     this.preExamObligationRecordsService.getAllByStudentAndCourse(this.userId,this.courseId).subscribe(
-      (response) => (this.preExamORecs = response.body, console.log(this.preExamORecs)),
+      (response) => (this.preExamORecs = response.body ,  this.onCalculateMax()),
       (error) => console.log(error)
     );
+  }
+
+  onCalculateMax(){
+    this.preExamORecs.forEach(element => {
+      this.total += element.points;
+      this.totalMax += element.maxPoints;
+    });
   }
 
 }

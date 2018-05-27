@@ -1,3 +1,123 @@
-<p>
-  professor-pre-exam-obligation works!
-</p>
+<div class="container-fluid pt-5">
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Max points</th>
+          <th>Set date/Grade</th>
+          <th>Edit/Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of preExamObligations">
+          <td>{{p.name}}</td>
+          <td>{{p.preExamOTypeName}}</td>
+          <td>{{p.maxPoints}}</td>
+          <td>
+            <button class="btn btn-info hand" (click)="onEditPEO(p.preExamOId)"><i class="fa fa-calendar" aria-hidden="true"></i></button> ⧸ 
+            <button class="btn btn-warning hand" (click)="onEditPEO(p.preExamOId)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+          </td>
+          <td>
+            <button class="btn btn-success hand" (click)="onEditPEO(p.preExamOId)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button> ⧸ 
+            <button class="btn btn-danger hand" (click)="onRemove(p.preExamOId)"><i class="fa fa-times" aria-hidden="true"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="btn btn-primary hand" (click)="onAddObligation()">New Pre exam obligation</button>
+   
+  </div>
+
+ 
+<app-dialog [(visible)]="showDialog">
+    <h4>Add Pre exam obligation</h4>
+    <hr>
+    <form (ngSubmit)="onSubmit()" class="form-horizontal" #f="ngForm">
+  
+      <div class="form-group">
+        <label class="control-label" for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="name..." class="form-control input-md" [(ngModel)]="newPreExamObligation.name" required
+          #name="ngModel" maxlength="20">
+        <span class="help-block" *ngIf="name.touched && !name.valid">
+          <i>name is required.</i>
+        </span>
+      </div>
+      <div class="form-group">
+          <label class="control-label" for="maxPoints">Max points</label>
+          <input id="maxPoints" name="maxPoints" type="number" [(value)]="newPreExamObligation.maxPoints" placeholder="maxPoints..." class="form-control input-md" [(ngModel)]="newPreExamObligation.maxPoints"  required
+            #maxPoints="ngModel" >
+          <span class="help-block" *ngIf="maxPoints.touched && !maxPoints.valid">
+            <i>maxPoints is required and must be a number.</i>
+          </span>
+      </div>
+
+      <div class="form-group">
+          <label for="typesSelect" class="control-label">Select type</label>
+          <select name="typesSelect" [(ngModel)]="newPreExamObligation.preExamOTypeId" id="typesSelect" required class="form-control input-md">
+            <option *ngFor="let t of types" value="{{t.preExamObligationTypeId}}">{{t.name}}</option>
+          </select>
+      </div>
+
+      <hr>
+      <div style="text-align: center">
+        <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Add</button>
+        <button type="button" (click)="showDialog = !showDialog" class="btn">Close</button>
+      </div>
+    </form>
+  
+</app-dialog>
+
+<app-dialog [(visible)]="showEditDialog">
+  <h4>Edit Pre exam obligation</h4>
+  <hr>
+  <form (ngSubmit)="onSubmit()" class="form-horizontal" #fe="ngForm">
+
+    <div class="form-group">
+      <label class="control-label" for="name">Name</label>
+      <input id="editName" name="editName" type="text" [(value)]="newPreExamObligation.name" placeholder="name..." class="form-control input-md" [(ngModel)]="newPreExamObligation.name"  required
+        #editName="ngModel" maxlength="20" >
+      <span class="help-block" *ngIf="editName.touched && !editName.valid">
+        <i>name is required.</i>
+      </span>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label" for="maxPoints">Max points</label>
+        <input id="editMaxPoints" name="editMaxPoints" type="number" [(value)]="newPreExamObligation.maxPoints" placeholder="maxPoints..." class="form-control input-md" [(ngModel)]="newPreExamObligation.maxPoints"  required
+          #editMaxPoints="ngModel" >
+        <span class="help-block" *ngIf="editMaxPoints.touched && !editMaxPoints.valid">
+          <i>maxPoints is required and must be a number.</i>
+        </span>
+      </div>
+
+      <div class="form-group">
+          <label for="typesSelect" class="control-label">Select type</label>
+          <select name="editTypesSelect" [(ngModel)]="newPreExamObligation.preExamOTypeId" id="editTypesSelect" required class="form-control input-md">
+            <option *ngFor="let t of types" value="{{t.preExamObligationTypeId}}">{{t.name}}</option>
+          </select>
+      </div>
+
+    <hr>
+    <div style="text-align: center">
+      <button class="btn btn-success" type="submit" [disabled]="!f.valid">Edit</button>
+      <button type="button" (click)="showEditDialog = !showEditDialog" class="btn">Close</button>
+    </div>
+  </form>
+
+</app-dialog>
+
+<app-dialog [(visible)]="showRemoveDialog">
+    <h4>Remove Pre exam obligation</h4>
+    <hr>
+        <label class="control-label" for="name">Are u sure u want to remove this type</label>
+      <hr>
+      <div style="text-align: center">
+        <button class="btn btn-danger" (click)="onRemoveConfirmed()">Remove</button>
+        <button type="button" (click)="showRemoveDialog = !showRemoveDialog" class="btn">Close</button>
+      </div>
+   
+  
+  </app-dialog>
+
