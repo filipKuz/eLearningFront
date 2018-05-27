@@ -49,12 +49,13 @@
           <input id="maxPoints" name="maxPoints" type="number" [(value)]="newPreExamObligation.maxPoints" placeholder="maxPoints..." class="form-control input-md" [(ngModel)]="newPreExamObligation.maxPoints"  required
             #maxPoints="ngModel" >
           <span class="help-block" *ngIf="maxPoints.touched && !maxPoints.valid">
-            <i>maxPoints is required.</i>
+            <i>maxPoints is required and must be a number.</i>
           </span>
       </div>
+
       <div class="form-group">
           <label for="typesSelect" class="control-label">Select type</label>
-          <select name="rolesSelect" [(ngModel)]="newPreExamObligation.preExamOTypeId" multiple class="form-control" id="typesSelect" required>
+          <select name="typesSelect" [(ngModel)]="newPreExamObligation.preExamOTypeId" id="typesSelect" required class="form-control input-md">
             <option *ngFor="let t of types" value="{{t.preExamObligationTypeId}}">{{t.name}}</option>
           </select>
       </div>
@@ -87,13 +88,13 @@
         <input id="editMaxPoints" name="editMaxPoints" type="number" [(value)]="newPreExamObligation.maxPoints" placeholder="maxPoints..." class="form-control input-md" [(ngModel)]="newPreExamObligation.maxPoints"  required
           #editMaxPoints="ngModel" >
         <span class="help-block" *ngIf="editMaxPoints.touched && !editMaxPoints.valid">
-          <i>maxPoints is required.</i>
+          <i>maxPoints is required and must be a number.</i>
         </span>
       </div>
 
       <div class="form-group">
           <label for="typesSelect" class="control-label">Select type</label>
-          <select name="rolesSelect" [(ngModel)]="newPreExamObligation.preExamOTypeId" multiple class="form-control" id="typesSelect" required>
+          <select name="editTypesSelect" [(ngModel)]="newPreExamObligation.preExamOTypeId" id="editTypesSelect" required class="form-control input-md">
             <option *ngFor="let t of types" value="{{t.preExamObligationTypeId}}">{{t.name}}</option>
           </select>
       </div>

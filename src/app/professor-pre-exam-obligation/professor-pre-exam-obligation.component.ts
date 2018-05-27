@@ -88,6 +88,7 @@ export class ProfessorPreExamObligationComponent implements OnInit {
 
   onEditPEO(id){
     this.resetEditForm();
+    this.getTypes();
     this.newPreExamObligation.preExamOId=id;
     this.actionForModal="edit";
     this.onGetById(this.newPreExamObligation.preExamOId);
@@ -96,6 +97,7 @@ export class ProfessorPreExamObligationComponent implements OnInit {
 
   onAddObligation(){
     this.resetAddForm();
+    this.getTypes();
     this.newPreExamObligation.preExamOId=null;
     this.newPreExamObligation.active=true;
     this.showDialog =! this.showDialog;
@@ -118,15 +120,18 @@ export class ProfessorPreExamObligationComponent implements OnInit {
 
   onSubmit() {
     if (this.actionForModal === 'edit') {
+      console.log(this.newPreExamObligation);
       this.onPutObligation();
       this.resetEditForm();
       this.showEditDialog = !this.showEditDialog;
     }
     if(this.actionForModal === 'add'){
+      console.log(this.newPreExamObligation);
       this.onPostNewType();
       this.resetAddForm();
       this.showDialog =! this.showDialog;
     }
+    
   }
 
   resetAddForm() {
