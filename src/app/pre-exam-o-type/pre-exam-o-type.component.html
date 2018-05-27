@@ -3,14 +3,14 @@
       <thead class="thead-light">
         <tr>
           <th>Name</th>
-          <th>Options</th>
+          <th>Edit/Remove</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let t of preExamOTypes">
           <td>{{t.name}}</td>
           <td>
-            <button class="btn btn-success hand" (click)="onEditType(t.preExamObligationTypeId)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+            <button class="btn btn-success hand" (click)="onEditType(t.preExamObligationTypeId)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button> ⧸ 
             <button class="btn btn-danger hand" (click)="onRemove(t.preExamObligationTypeId)"><i class="fa fa-times" aria-hidden="true"></i>
             </button>
           </td>

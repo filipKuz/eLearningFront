@@ -13,6 +13,7 @@ export class StudentPreExamObligationComponent implements OnInit {
   @Input() userId: number;
   @Input() courseId: number;
   total: number = 0;
+  totalMax: number = 0;
   preExamORecs=[];
 
   ngOnInit() {
@@ -21,9 +22,16 @@ export class StudentPreExamObligationComponent implements OnInit {
 
   getPreExamORecByUserIdAndCourseId(userId,courseId){
     this.preExamObligationRecordsService.getAllByStudentAndCourse(this.userId,this.courseId).subscribe(
-      (response) => (this.preExamORecs = response.body),
+      (response) => (this.preExamORecs = response.body ,  this.onCalculateMax()),
       (error) => console.log(error)
     );
+  }
+
+  onCalculateMax(){
+    this.preExamORecs.forEach(element => {
+      this.total += element.points;
+      this.totalMax += element.maxPoints;
+    });
   }
 
 }

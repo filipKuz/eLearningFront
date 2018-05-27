@@ -13,13 +13,13 @@
             <td>{{p.preExamOName}}</td>
             <td>{{p.date}}</td>
             <td>{{p.points}} / {{p.maxPoints}}</td>
-            <td>{{p.passed == true ? "✔" : "✘"}}</td>
+            <td>{{p.passed == true ? "✔" : "❌"}}</td>
         </tr>
         <tr>
             <td></td>
             <td></td>
-            <td>Total: </td>
-            
+            <th>Total: {{total}} / {{totalMax}} </th>  
+            <td></td> 
         </tr>
       </tbody>
     </table>
