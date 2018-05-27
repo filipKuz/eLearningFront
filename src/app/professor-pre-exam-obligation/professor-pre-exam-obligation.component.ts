@@ -40,7 +40,7 @@ export class ProfessorPreExamObligationComponent implements OnInit {
 
   getPreExamObligationByCourseId(id:number){
     this.preExamObligationService.getAllByCourse(id).subscribe(
-      (response) => (this.preExamObligations = response.body, console.log(response.body)),
+      (response) => (this.preExamObligations = response.body),
       (error) => console.log(error)
     );
 

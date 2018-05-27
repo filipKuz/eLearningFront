@@ -5,7 +5,8 @@
           <th>Name</th>
           <th>Type</th>
           <th>Max points</th>
-          <th>Options</th>
+          <th>Set date/Grade</th>
+          <th>Edit/Remove</th>
         </tr>
       </thead>
       <tbody>
@@ -14,9 +15,12 @@
           <td>{{p.preExamOTypeName}}</td>
           <td>{{p.maxPoints}}</td>
           <td>
-            <button class="btn btn-success hand" (click)="onEditPEO(p.preExamOId)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-            <button class="btn btn-danger hand" (click)="onRemove(p.preExamOId)"><i class="fa fa-times" aria-hidden="true"></i>
-            </button>
+            <button class="btn btn-info hand" (click)="onEditPEO(p.preExamOId)"><i class="fa fa-calendar" aria-hidden="true"></i></button> ⧸ 
+            <button class="btn btn-warning hand" (click)="onEditPEO(p.preExamOId)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+          </td>
+          <td>
+            <button class="btn btn-success hand" (click)="onEditPEO(p.preExamOId)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button> ⧸ 
+            <button class="btn btn-danger hand" (click)="onRemove(p.preExamOId)"><i class="fa fa-times" aria-hidden="true"></i></button>
           </td>
         </tr>
       </tbody>
