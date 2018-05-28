@@ -34,4 +34,8 @@ export class PreExamObligationervice {
     getAllByCourse(cId: number): Observable<any> {
         return this.http.get(this.path + "/" + "course" + "/"+ cId, { observe: 'response' })
     }
+
+    setObligationDate(id: number, model:any): Observable<any>{
+        return this.http.post(this.path + "/" + "setDate" + "/"+ id, model)
+    }
 }
