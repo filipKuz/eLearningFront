@@ -28,6 +28,8 @@ import { PreExamObligationRecordsService } from './student-pre-exam-obligation/p
 import { PreExamOTypeComponent } from './pre-exam-o-type/pre-exam-o-type.component';
 import { PreExamOTypeService } from './pre-exam-o-type/pre-exam-o-type.service';
 import { PreExamObligationervice } from './professor-pre-exam-obligation/pre-exam-obligation.service';
+import { EdocumentsComponent } from './edocuments/edocuments.component';
+import { EdocumentService } from './edocuments/edocument.service';
 
 const routes: Routes = [
   /* {
@@ -50,6 +52,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'documents',
+    component: EdocumentsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'preExamOTypes',
     component: PreExamOTypeComponent
   }
@@ -67,7 +74,8 @@ const routes: Routes = [
     UserProfileComponent,
     PaginationComponent,
     DialogComponent,
-    PreExamOTypeComponent
+    PreExamOTypeComponent,
+    EdocumentsComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +93,7 @@ const routes: Routes = [
     provide: HTTP_INTERCEPTORS,
     useClass: JwtInterceptorService,
     multi: true
-  }, RoleService, UserProfileService, AuthGuard
+  }, RoleService, UserProfileService, AuthGuard, EdocumentService
 ],
   bootstrap: [AppComponent]
 })
