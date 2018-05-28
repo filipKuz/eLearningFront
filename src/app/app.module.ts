@@ -1,14 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule} from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { UserService } from './user/user.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { DepartmentComponent } from './department/department.component'; 
+import { DepartmentComponent } from './department/department.component';
 import { DepartmentService } from './department/department.service';
 import { AuthorizationComponent } from './authorization/authorization.component';
 import { AuthorizationService } from './authorization/authorization.service';
@@ -19,7 +19,7 @@ import { ProfessorPreExamObligationRecordsComponent } from './professor-pre-exam
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { JwtInterceptorService } from './authorization/jwt-interceptor.service';
 import { PaginationComponent } from './pagination/pagination.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DialogComponent } from './dialog/dialog.component';
 import { RoleService } from './shared/role.service';
 import { PreExamObligationRecordsService } from './student-pre-exam-obligation/pre-exam-obligation-records.service';
@@ -49,7 +49,7 @@ const routes: Routes = [
     path: 'preExamOTypes',
     component: PreExamOTypeComponent
   }
-]
+];
 
 @NgModule({
   declarations: [
@@ -72,17 +72,17 @@ const routes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(routes), NgbModule.forRoot()
   ],
-  providers: [UserService, DepartmentService, AuthorizationService, TokenInterceptorService, JwtInterceptorService, PreExamObligationRecordsService,PreExamOTypeService,PreExamObligationervice,  {
+  providers: [UserService, DepartmentService, AuthorizationService, TokenInterceptorService, JwtInterceptorService, PreExamObligationRecordsService, PreExamOTypeService, PreExamObligationervice, {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
-    multi:true
-  }, 
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: JwtInterceptorService,
     multi: true
-  }, RoleService
-],
+  },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorService,
+      multi: true
+    }, RoleService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
