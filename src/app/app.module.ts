@@ -26,6 +26,8 @@ import { PreExamObligationRecordsService } from './student-pre-exam-obligation/p
 import { PreExamOTypeComponent } from './pre-exam-o-type/pre-exam-o-type.component';
 import { PreExamOTypeService } from './pre-exam-o-type/pre-exam-o-type.service';
 import { PreExamObligationervice } from './professor-pre-exam-obligation/pre-exam-obligation.service';
+import { StudentCourseComponent } from './student-course/student-course.component';
+import { ProfessorCourseComponent } from './professor-course/professor-course.component';
 
 const routes: Routes = [
   /* {
@@ -63,7 +65,9 @@ const routes: Routes = [
     UserProfileComponent,
     PaginationComponent,
     DialogComponent,
-    PreExamOTypeComponent
+    PreExamOTypeComponent,
+    StudentCourseComponent,
+    ProfessorCourseComponent,
   ],
   imports: [
     BrowserModule,

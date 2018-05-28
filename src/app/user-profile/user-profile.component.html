@@ -106,7 +106,8 @@
           </label>
       </div>
   </div>
-  <app-student-pre-exam-obligation [(userId)]="userId" [(courseId)]="courseId" ></app-student-pre-exam-obligation>
-  <app-professor-pre-exam-obligation [(userId)]="userId" [(courseId)]="courseId" ></app-professor-pre-exam-obligation>
+  
+    <app-student-course [(userId)]="userId" [(courseId)]="courseId"></app-student-course>
+    <app-professor-course [(userId)]="userId" [(courseId)]="courseId"></app-professor-course>
 </div>
 
