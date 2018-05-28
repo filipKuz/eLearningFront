@@ -27,14 +27,16 @@ export class ProfessorPreExamObligationComponent implements OnInit {
   showDialog: boolean = false;
   showEditDialog: boolean = false;
   showRemoveDialog: boolean = false;
+  showSetDateDialog: boolean = false;
   actionForModal = "";
-
+  model;
 
   @Input() userId: number;
   @Input() courseId: number;
 
   @ViewChild('f') addObligationForm: NgForm;
   @ViewChild('fe') editObligationForm: NgForm;
+  @ViewChild('fs') setObligationDateForm: NgForm;
 
   ngOnInit() {
     this.newPreExamObligation.courseId=this.courseId;
@@ -88,6 +90,7 @@ export class ProfessorPreExamObligationComponent implements OnInit {
 
   onEditPEO(id){
     this.resetEditForm();
+    this.getTypes();
     this.newPreExamObligation.preExamOId=id;
     this.actionForModal="edit";
     this.onGetById(this.newPreExamObligation.preExamOId);
@@ -96,10 +99,18 @@ export class ProfessorPreExamObligationComponent implements OnInit {
 
   onAddObligation(){
     this.resetAddForm();
+    this.getTypes();
     this.newPreExamObligation.preExamOId=null;
     this.newPreExamObligation.active=true;
-    this.showDialog =! this.showDialog;
     this.actionForModal = "add";
+    this.showDialog =! this.showDialog;
+  }
+
+  onSetDate(id){
+    this.resetSetObligationDateForm();
+    this.newPreExamObligation.preExamOId = id;
+    this.actionForModal ="setDate"
+    this.showSetDateDialog = !this.showSetDateDialog;
   }
 
   onPutObligation(){
@@ -116,6 +127,19 @@ export class ProfessorPreExamObligationComponent implements OnInit {
     )
   }
 
+  onSetNewDate(){
+    if (this.model.month <= 9) {
+      this.model.month = "0" + this.model.month;
+    }
+    if (this.model.day <= 9) {
+      this.model.day = "0" + this.model.day;
+    }
+    console.log(this.model);
+    this.preExamObligationService.setObligationDate(this.newPreExamObligation.preExamOId, this.model).subscribe(
+      error => console.log(error)
+    )
+  }
+
   onSubmit() {
     if (this.actionForModal === 'edit') {
       this.onPutObligation();
@@ -127,7 +151,16 @@ export class ProfessorPreExamObligationComponent implements OnInit {
       this.resetAddForm();
       this.showDialog =! this.showDialog;
     }
+    if(this.actionForModal === 'setDate'){
+      this.onSetNewDate();
+      this.resetSetObligationDateForm();
+      this.showSetDateDialog = !this.showSetDateDialog;
+    }
+    
   }
+
+  
+
 
   resetAddForm() {
     this.addObligationForm.resetForm();
@@ -137,4 +170,7 @@ export class ProfessorPreExamObligationComponent implements OnInit {
     this.editObligationForm.resetForm();
   }
 
+  resetSetObligationDateForm(){
+    this.setObligationDateForm.resetForm();
+  }
 }

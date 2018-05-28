@@ -27,18 +27,16 @@ export class AuthorizationComponent implements OnInit {
     this.authService.login(this.loginData.userName, this.loginData.userPassword)
       .subscribe((result: boolean) => {
         if (result) {
-          //login successful
+          // login successful
           this.router.navigate(['/users']);
         }
       }, (error: Error) => {
         if (error.toString() === 'Ilegal login') {
           this.wrongUsernameOrPass = true;
           console.log(error);
-        }
-        else {
+        } else {
           Observable.throw(error);
         }
-
       });
   }
 }

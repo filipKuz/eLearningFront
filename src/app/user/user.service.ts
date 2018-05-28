@@ -16,15 +16,15 @@ export class UserService {
     }
 
     getAll(page: number, size: number, sortParam: string, sortDirection: string, term: string): Observable<any> {
-        return this.http.get(this.path + "?term=" +  term + "&page=" + page + "&size=" + size + "&sort=" + sortParam + "," + sortDirection, { observe: 'response' })
+        return this.http.get(this.path + "?term=" + term + "&page=" + page + "&size=" + size + "&sort=" + sortParam + "," + sortDirection, { observe: 'response' });
     }
 
     getActiveUsers(page: number, size: number, sortParam: string, sortDirection: string, term: string): Observable<any> {
-        return this.http.get(this.path + "/active?term=" +  term + "&page=" + page + "&size=" + size + "&sort=" + sortParam + "," + sortDirection, { observe: 'response' })
+        return this.http.get(this.path + "/active?term=" + term + "&page=" + page + "&size=" + size + "&sort=" + sortParam + "," + sortDirection, { observe: 'response' });
     }
 
     getNotActiveUsers(page: number, size: number, sortParam: string, sortDirection: string, term: string): Observable<any> {
-        return this.http.get(this.path + "/not-active?term=" +  term + "&page=" + page + "&size=" + size + "&sort=" + sortParam + "," + sortDirection, { observe: 'response' })
+        return this.http.get(this.path + "/not-active?term=" + term + "&page=" + page + "&size=" + size + "&sort=" + sortParam + "," + sortDirection, { observe: 'response' });
     }
 
     postNewUser(newUser: any): Observable<any> {
@@ -36,6 +36,6 @@ export class UserService {
     }
 
     changeUserStatus(id: number): Observable<any> {
-        return this.http.put(this.path + "/" + id, null, {responseType: 'text'});
+        return this.http.put(this.path + "/" + id, null, { responseType: 'text' });
     }
 }
