@@ -46,15 +46,9 @@ export class UserComponent implements OnInit {
   }
 
   onSelectUserStatus() {
-<<<<<<< HEAD
-    if (this.userStatus === "all") { this.getAllUsers() };
-    if (this.userStatus === "active") { this.getActiveUsers() };
-    if (this.userStatus === "notactive") { this.getNotActiveUsers() };
-=======
     if (this.userStatus === "all") { this.getAllUsers(); }
     if (this.userStatus === "active") { this.getActiveUsers(); }
     if (this.userStatus === "notactive") { this.getNotActiveUsers(); }
->>>>>>> 4ec0faffbc16ff3eef03e6b2f9380e3e89b19514
   }
 
   getAllUsers() {
@@ -79,19 +73,12 @@ export class UserComponent implements OnInit {
   }
 
   isUsernameUnique() {
-<<<<<<< HEAD
     if (this.newUser.username.length > 0) {
       this.userService.isUsernameUnique(this.newUser.username, 'add', '').subscribe(
         response => this.isUnique = response,
         error => console.log(error)
       )
     }
-=======
-    this.userService.isUsernameUnique(this.newUser.username).subscribe(
-      response => this.isUnique = response,
-      error => console.log(error)
-    );
->>>>>>> 4ec0faffbc16ff3eef03e6b2f9380e3e89b19514
   }
 
   postNewUser() {
