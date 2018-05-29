@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { PreExamObligationervice } from './pre-exam-obligation.service';
 import { PreExamOTypeService } from '../pre-exam-o-type/pre-exam-o-type.service';
 import { NgForm } from '@angular/forms';
+import { PreExamObligationRecordsService } from '../student-pre-exam-obligation/pre-exam-obligation-records.service';
 
 @Component({
   selector: 'app-professor-pre-exam-obligation',
@@ -11,9 +12,11 @@ import { NgForm } from '@angular/forms';
 export class ProfessorPreExamObligationComponent implements OnInit {
 
   constructor(private preExamObligationService: PreExamObligationervice,
-              private typeService: PreExamOTypeService) { }
+              private typeService: PreExamOTypeService,
+              private recordsServoce: PreExamObligationRecordsService) { }
 
   preExamObligations=[];
+  preExamObligationsRecords=[];
   types=[];
   newPreExamObligation={
     preExamOId:0,
@@ -28,6 +31,7 @@ export class ProfessorPreExamObligationComponent implements OnInit {
   showEditDialog: boolean = false;
   showRemoveDialog: boolean = false;
   showSetDateDialog: boolean = false;
+  showGradeDialog: boolean = false;
   actionForModal = "";
   model;
 
@@ -37,6 +41,7 @@ export class ProfessorPreExamObligationComponent implements OnInit {
   @ViewChild('f') addObligationForm: NgForm;
   @ViewChild('fe') editObligationForm: NgForm;
   @ViewChild('fs') setObligationDateForm: NgForm;
+  @ViewChild('fg') gradeObligationForm: NgForm;
 
   ngOnInit() {
     this.newPreExamObligation.courseId=this.courseId;
@@ -51,6 +56,13 @@ export class ProfessorPreExamObligationComponent implements OnInit {
       (error) => console.log(error)
     );
 
+  }
+
+  getobligationsRecords(id:number){
+    this.recordsServoce.getAllByPreExamObligation(id).subscribe(
+      (response) => (this.preExamObligationsRecords = response.body),
+      (error) => console.log(error)
+    )
   }
 
   getTypes() {
@@ -106,6 +118,18 @@ export class ProfessorPreExamObligationComponent implements OnInit {
     this.showDialog =! this.showDialog;
   }
 
+  onGrade(id){
+    this.resetGradeObligationForm();
+    this.getobligationsRecords(id);
+    this.newPreExamObligation.preExamOId=id;
+    this.actionForModal = "grade";
+    this.showGradeDialog =! this.showGradeDialog;
+  }
+
+  onPostGrade(){
+    //this.preExamObligations.
+  }
+
   onSetDate(id){
     this.resetSetObligationDateForm();
     this.newPreExamObligation.preExamOId = id;
@@ -128,14 +152,9 @@ export class ProfessorPreExamObligationComponent implements OnInit {
   }
 
   onSetNewDate(){
-    if (this.model.month <= 9) {
-      this.model.month = "0" + this.model.month;
-    }
-    if (this.model.day <= 9) {
-      this.model.day = "0" + this.model.day;
-    }
-    console.log(this.model);
-    this.preExamObligationService.setObligationDate(this.newPreExamObligation.preExamOId, this.model).subscribe(
+    console.log("aa");
+    console.log(this.model.day);
+    this.recordsServoce.setObligationDate(this.newPreExamObligation.preExamOId, this.model.year, this.model.month, this.model.day).subscribe(
       error => console.log(error)
     )
   }
@@ -156,6 +175,11 @@ export class ProfessorPreExamObligationComponent implements OnInit {
       this.resetSetObligationDateForm();
       this.showSetDateDialog = !this.showSetDateDialog;
     }
+    if(this.actionForModal === 'grade'){
+      this.onSetNewDate();
+      this.resetGradeObligationForm();
+      this.showGradeDialog = !this.showSetDateDialog;
+    }
     
   }
 
@@ -172,5 +196,9 @@ export class ProfessorPreExamObligationComponent implements OnInit {
 
   resetSetObligationDateForm(){
     this.setObligationDateForm.resetForm();
+  }
+
+  resetGradeObligationForm(){
+    this.gradeObligationForm.resetForm();
   }
 }

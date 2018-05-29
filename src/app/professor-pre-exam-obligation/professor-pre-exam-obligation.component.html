@@ -16,7 +16,7 @@
           <td>{{p.maxPoints}}</td>
           <td>
             <button class="btn btn-info hand" (click)="onSetDate(p.preExamOId)"><i class="fa fa-calendar" aria-hidden="true"></i></button> ⧸ 
-            <button class="btn btn-warning hand" (click)="onEditPEO(p.preExamOId)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            <button class="btn btn-warning hand" (click)="onGrade(p.preExamOId)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
           </td>
           <td>
             <button class="btn btn-success hand" (click)="onEditPEO(p.preExamOId)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button> ⧸ 
@@ -147,3 +147,45 @@
     
     </app-dialog>
 
+    <app-dialog [(visible)]="showGradeDialog" class="">
+      <h4>Grade pre exam obligations</h4>
+      <hr>
+      <form (ngSubmit)="onSubmit()" class="form-horizontal" #fg="ngForm">
+    
+        <table class="table table-hover"  style="width: 700px;">
+          <thead class="thead-light">
+            <tr>
+              <th>Student name</th>
+              <th>Tr number</th>
+              <th>Date</th>
+              <th>Points</th>
+              <th>Passed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let r of preExamObligationsRecords">
+              <td>{{r.studentName}} {{r.studentLastName}}</td>
+              <td>{{r.trNumber}}</td>
+              <td>{{r.date}}</td>
+              <td>
+                <input id="gradePoints" name="gradePoints" type="number" [(value)]="r.points" placeholder="Points" class="form-control input-md" [(ngModel)]="preExamObligationsRecords.points" 
+                  #gradePoints="ngModel" style="width: 100px;" >
+              </td>
+              <td>
+                <input id="gradePoints" name="gradePoints" type="checkbox" [(value)]="r.passed" class="form-control input-md" [(ngModel)]="preExamObligationsRecords.passed" 
+                  #gradePoints="ngModel" style="width: 20px;" >
+              </td>
+              <!-- <td>{{r.points}}</td> 
+              <td>{{r.passed}}</td> -->
+            </tr>
+          </tbody>
+        </table>
+
+        <hr>
+        <div style="text-align: center">
+          <button class="btn btn-warning" type="submit">Grade</button>
+          <button type="button" (click)="showGradeDialog = !showGradeDialog" class="btn">Close</button>
+        </div>
+      </form>
+    
+    </app-dialog>
