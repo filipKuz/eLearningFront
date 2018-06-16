@@ -111,7 +111,7 @@
 <app-dialog [(visible)]="showRemoveDialog">
     <h4>Remove Pre exam obligation</h4>
     <hr>
-        <label class="control-label" for="name">Are u sure u want to remove this type</label>
+        <label class="control-label" for="name">Are you sure u want to remove this obligation</label>
       <hr>
       <div style="text-align: center">
         <button class="btn btn-danger" (click)="onRemoveConfirmed()">Remove</button>
@@ -147,7 +147,7 @@
     
     </app-dialog>
 
-    <app-dialog [(visible)]="showGradeDialog" class="">
+    <app-dialog [(visible)]="showGradeDialog" class="grades">
       <h4>Grade pre exam obligations</h4>
       <hr>
       <form (ngSubmit)="onSubmit()" class="form-horizontal" #fg="ngForm">
@@ -168,12 +168,13 @@
               <td>{{r.trNumber}}</td>
               <td>{{r.date}}</td>
               <td>
-                <input id="gradePoints" name="gradePoints" type="number" [(value)]="r.points" placeholder="Points" class="form-control input-md" [(ngModel)]="preExamObligationsRecords.points" 
+                <input  type="number" [(value)]="r.points" placeholder="Points" class="form-control input-md" [(ngModel)]="r.points" 
                   #gradePoints="ngModel" style="width: 100px;" >
               </td>
+              
               <td>
-                <input id="gradePoints" name="gradePoints" type="checkbox" [(value)]="r.passed" class="form-control input-md" [(ngModel)]="preExamObligationsRecords.passed" 
-                  #gradePoints="ngModel" style="width: 20px;" >
+                <input type="checkbox" [(value)]="r.passed" class="form-control input-md" [(ngModel)]="r.passed" 
+                  #gradePassed="ngModel" style="width: 20px;" >
               </td>
               <!-- <td>{{r.points}}</td> 
               <td>{{r.passed}}</td> -->

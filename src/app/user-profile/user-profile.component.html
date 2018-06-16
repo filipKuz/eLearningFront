@@ -16,18 +16,32 @@
                 <div class="tab-pane active" id="profile">
                     <div class="row">
                         <div class="col-md-8">
-                            <h5>
-                                Name: {{user.firstName}} {{user.lastName}} 
-                            </h5>
-                            <h5>
-                                Username: {{user.username}}
-                            </h5>                        
-                            <p>
-                                Date of birth: {{dateOfBirth}} Phone number: {{user.phoneNumber}}
-                            </p>
-                            <p>
-                                Roles: {{user.roleName}}
-                            </p>
+                            <table class="table">
+                                <tr>
+                                    <td> Name: </td>
+                                    <td> {{user.firstName}} {{user.lastName}} </td>
+                                </tr>
+                                <tr>
+                                    <td> Username: </td>
+                                    <td> {{user.username}} </td>
+                                </tr>
+                                <tr>
+                                    <td> Date of birth: </td>
+                                    <td> {{dateOfBirth}} </td>
+                                </tr>
+                                <tr>
+                                    <td> Phone number: </td>
+                                    <td> {{user.phoneNumber}} </td>
+                                </tr>
+                                <tr>
+                                    <td> Address: </td>
+                                    <td> {{user.address}} </td>
+                                </tr>
+                                <tr>
+                                    <td> Roles: </td>
+                                    <td> {{user.roleName}} </td>
+                                </tr>
+                            </table>
                         </div>
 
                     </div>
