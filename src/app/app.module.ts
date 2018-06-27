@@ -32,6 +32,7 @@ import { EdocumentsComponent } from './edocuments/edocuments.component';
 import { EdocumentService } from './edocuments/edocument.service';
 import { StudentCourseComponent } from './student-course/student-course.component';
 import { ProfessorCourseComponent } from './professor-course/professor-course.component';
+import { ExamService } from './shared/exam.service';
 
 const routes: Routes = [
   /* {
@@ -61,6 +62,10 @@ const routes: Routes = [
   {
     path: 'preExamOTypes',
     component: PreExamOTypeComponent
+  },
+  {
+    path: "professorCourses",
+    component: ProfessorCourseComponent
   }
 ];
 
@@ -88,11 +93,12 @@ const routes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(routes), NgbModule.forRoot()
   ],
-  providers: [UserService, DepartmentService, AuthorizationService, TokenInterceptorService, JwtInterceptorService, PreExamObligationRecordsService, PreExamOTypeService, PreExamObligationervice, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptorService,
-    multi: true
-  }, {
+  providers: [UserService, DepartmentService, AuthorizationService, TokenInterceptorService,
+    JwtInterceptorService, PreExamObligationRecordsService, PreExamOTypeService, PreExamObligationervice, ExamService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }, {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptorService,
       multi: true

@@ -17,11 +17,11 @@
                     <div class="row">
                         <div class="col-md-8">
                             <h5>
-                                Name: {{user.firstName}} {{user.lastName}} 
+                                Name: {{user.firstName}} {{user.lastName}}
                             </h5>
                             <h5>
                                 Username: {{user.username}}
-                            </h5>                        
+                            </h5>
                             <p>
                                 Date of birth: {{dateOfBirth}} Phone number: {{user.phoneNumber}}
                             </p>
@@ -176,7 +176,8 @@
             <img src="assets/img/{{user.imagePath}}" class="mx-auto img-fluid img-circle d-block" alt="avatar">
             <h6 class="mt-2">Upload a different photo</h6>
             <label class="btn btn-success cursor-pointer" style="width:75px;">
-                Browse <input type="file" id="file" class="custom-file-input cursor-pointer" (change)="fileChange($event)">
+                Browse
+                <input type="file" id="file" class="custom-file-input cursor-pointer" (change)="fileChange($event)">
             </label>
         </div>
     </div>

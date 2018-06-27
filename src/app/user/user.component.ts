@@ -77,7 +77,7 @@ export class UserComponent implements OnInit {
       this.userService.isUsernameUnique(this.newUser.username, 'add', '').subscribe(
         response => this.isUnique = response,
         error => console.log(error)
-      )
+      );
     }
   }
 
