@@ -17,6 +17,10 @@ export class UserService {
         return this.http.get(this.path + "?term=" + term + "&page=" + page + "&size=" + size + "&sort=" + sortParam + "," + sortDirection, { observe: 'response' });
     }
 
+    getAllForPayments(): Observable<any> {
+        return this.http.get(this.path + "/users_payments")
+    }
+
     getActiveUsers(page: number, size: number, sortParam: string, sortDirection: string, term: string): Observable<any> {
         return this.http.get(this.path + "/active?term=" + term + "&page=" + page + "&size=" + size + "&sort=" + sortParam + "," + sortDirection, { observe: 'response' });
     }

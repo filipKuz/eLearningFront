@@ -1,0 +1,96 @@
+<div class="container-fluid pt-5">
+  <table class="table table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>No.</th>
+        <th>Name
+          <i class="fa fa-fw fa-sort hand"></i>
+        </th>
+        <th>Active
+          <i class="fa fa-fw fa-sort hand"></i>
+        </th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of courses; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{c.name}}</td>
+        <td>{{c.active}}</td>
+        <td>
+          <button class="btn btn-success hand" (click)="onEditCourse(c.courseId)">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </button> ⧸
+          <button class="btn btn-danger hand" (click)="onRemove(c.courseId)">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-primary hand pull-right" (click)="showDialog = !showDialog;resetAddForm();">New course</button>
+  <!-- <button class="btn btn-primary hand pull-right" (click)="showDialog = !showDialog;resetAddForm();getRoles();">New user</button> -->
+  <app-pagination class=""></app-pagination>
+  <div>
+
+    <app-dialog [(visible)]="showDialog">
+      <h4>Add Course</h4>
+      <hr>
+      <form (ngSubmit)="postNewCourse()" class="form-horizontal" #f="ngForm">
+
+        <div class="form-group">
+          <label class="control-label" for="name">Name</label>
+          <input id="name" name="name" type="text" placeholder="Name" class="form-control input-md" [(ngModel)]="newCourse.name" required
+            #name="ngModel" maxlength="20">
+          <span class="help-block" *ngIf="name.touched && !name.valid">
+            <i>Name is required.</i>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="name">Active</label>
+          <input id="active" name="active" type="checkbox" class="form-control input-md-1" [(ngModel)]="newCourse.active" required
+            #name="ngModel" checked>
+        </div>
+
+        <div class="form-group">
+          <label for="departmentSelect" class="control-label">Select department</label>
+          <select name="departmentSelect" [(ngModel)]="newCourse.departmentId" multiple class="form-control" id="departmentSelect" required>
+            <option *ngFor="let d of departments" value="{{d.departmentId}}">
+              {{d.name}}
+             </option>
+
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="studentSelect" class="control-label">Select students</label>
+          <select name="studentSelect" [(ngModel)]="newCourse.studentIds" multiple class="form-control" id="studentSelect" required>
+            <option *ngFor="let s of students" value="{{s.studentId}}">
+              {{s.firstName}} {{s.lastName}}
+             </option>
+
+          </select>
+        </div>
+
+
+        <!-- <div class="form-group">
+          <label class="control-label" for="value">Value</label>
+          <input id="value" name="value" type="text" placeholder="Value..." class="form-control input-md" [(ngModel)]="newCourse.value"
+            required #value="ngModel" maxlength="20">
+          <span class="help-block" *ngIf="value.touched && !value.valid">
+            <i>Value name is required.</i>
+          </span>
+        </div> -->
+
+
+        
+
+        <hr>
+        <div style="text-align: center">
+          <button class="btn btn-primary" type="submit">Add</button>
+          <button type="button" (click)="showDialog = !showDialog" class="btn">Close</button>
+        </div>
+      </form>
+
+    </app-dialog>

@@ -1,0 +1,82 @@
+<p>
+  professor-type works!
+</p>
+<div class="container-fluid pt-5">
+  <table class="table table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>Name</th>
+        <th>Edit/Remove</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of professorTypes">
+        <td>{{t.name}}</td>
+        <td>
+          <button class="btn btn-success hand" (click)="onEditType(t.professorTypeId)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button> ⧸ 
+          <button class="btn btn-danger hand"  (click)="onRemove(t.professorTypeId)"><i class="fa fa-times" aria-hidden="true"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-primary hand" (click)="onAddType()">New Type</button>
+</div>
+<app-dialog [(visible)]="showDialog">
+  <h4>Add type</h4>
+  <hr>
+  <form (ngSubmit)="onSubmit()" class="form-horizontal" #f="ngForm">
+
+    <div class="form-group">
+      <label class="control-label" for="name">Name</label>
+      <input id="name" name="name" type="text" placeholder="name..." class="form-control input-md" [(ngModel)]="newProfessorType.name" required
+        #name="ngModel" maxlength="20">
+      <span class="help-block" *ngIf="name.touched && !name.valid">
+        <i>name is required.</i>
+      </span>
+    </div>
+
+    <hr>
+    <div style="text-align: center">
+      <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Add</button>
+      <button type="button" (click)="showDialog = !showDialog" class="btn">Close</button>
+    </div>
+  </form>
+
+</app-dialog>
+
+<app-dialog [(visible)]="showEditDialog">
+  <h4>Edit type</h4>
+  <hr>
+  <form (ngSubmit)="onSubmit()" class="form-horizontal" #fe="ngForm">
+
+    <div class="form-group">
+      <label class="control-label" for="name">Name</label>
+      <input id="editName" name="editName" type="text" [(value)]="newProfessorType.name" placeholder="name..." class="form-control input-md" [(ngModel)]="newProfessorType.name"  required
+        #editName="ngModel" maxlength="20" >
+      <span class="help-block" *ngIf="editName.touched && !editName.valid">
+        <i>name is required.</i>
+      </span>
+    </div>
+
+    <hr>
+    <div style="text-align: center">
+      <button class="btn btn-success" type="submit" [disabled]="!f.valid">Edit</button>
+      <button type="button" (click)="showEditDialog = !showEditDialog" class="btn">Close</button>
+    </div>
+  </form>
+
+</app-dialog>
+
+<app-dialog [(visible)]="showRemoveDialog">
+    <h4>Remove type</h4>
+    <hr>
+        <label class="control-label" for="name">Are you sure u want to remove this rofessor type</label>
+      <hr>
+      <div style="text-align: center">
+        <button class="btn btn-danger" (click)="onRemoveConfirmed()">Remove</button>
+        <button type="button" (click)="showRemoveDialog = !showRemoveDialog" class="btn">Close</button>
+      </div>
+   
+  
+  </app-dialog>

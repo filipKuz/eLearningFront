@@ -1,0 +1,140 @@
+<div class="container-fluid pt-5">
+  <table class="table table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>No.</th>
+        <th>Description
+          <i class="fa fa-fw fa-sort hand"></i>
+        </th>
+        <th>Value
+          <i class="fa fa-fw fa-sort hand"></i>
+        </th>
+        <th>Student
+          <i class="fa fa-fw fa-sort hand"></i>
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of payments; let i = index">
+        <!-- <tr [ngClass]="{'table-danger': !u.active}" *ngFor="let p of payments; let i = index" > -->
+        <td>{{i + 1}}</td>
+        <td>{{p.description}}</td>
+        <td>{{p.value}}</td>
+        <!-- <td><a class="hand" [routerLink]="['/profile', u.userId]" title="Go to user profile.">{{u.username}}</a></td> -->
+        <td>{{p.studentFirstName}} {{p.studentLastName}}</td>
+        <td>
+            <button class="btn btn-success hand" (click)="onEditPayment(p.paymentId)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button> ⧸ 
+            <button class="btn btn-danger hand"  (click)="onRemovePayment(p.paymentId)"><i class="fa fa-times" aria-hidden="true"></i>
+            </button>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+
+    <button class="btn btn-primary hand pull-right" (click)="showDialog = !showDialog;resetAddForm();getStudents();">New payment</button>
+    <!-- <button class="btn btn-primary hand pull-right" (click)="showDialog = !showDialog;resetAddForm();getRoles();">New user</button> -->
+    <app-pagination class=""></app-pagination>
+
+  </div>
+
+
+
+
+  <app-dialog [(visible)]="showDialog">
+    <h4>Add Payment</h4>
+    <hr>
+    <form (ngSubmit)="postNewPayment()" class="form-horizontal" #f="ngForm">
+
+      <div class="form-group">
+        <label class="control-label" for="description">Description</label>
+        <input id="description" name="description" type="text" placeholder="Description" class="form-control input-md" [(ngModel)]="newPayment.description"
+          required #description="ngModel" maxlength="20">
+        <span class="help-block" *ngIf="description.touched && !description.valid">
+          <i>Description is required.</i>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label" for="value">Value</label>
+        <input id="value" name="value" type="text" placeholder="Value..." class="form-control input-md" [(ngModel)]="newPayment.value"
+          required #value="ngModel" maxlength="20">
+        <span class="help-block" *ngIf="value.touched && !value.valid">
+          <i>Value name is required.</i>
+        </span>
+      </div>
+
+
+      <div class="form-group">
+        <label for="studentSelect" class="control-label">Select student</label>
+        <select name="studentSelect" [(ngModel)]="newPayment.studentId" class="form-control" id="studentSelect" required>
+          <option *ngFor="let s of students" value="{{s.userId}}">{{s.firstName}}
+            <p>{{s.userId}}</p> {{s.lastName}}</option>
+
+        </select>
+      </div>
+
+      <hr>
+      <div style="text-align: center">
+        <button class="btn btn-primary" type="submit">Add</button>
+        <button type="button" (click)="showDialog = !showDialog" class="btn">Close</button>
+      </div>
+    </form>
+
+  </app-dialog>
+
+  <app-dialog [(visible)]="showEditDialog">
+      <h4>Edit payment</h4>
+      <hr>
+      <form (ngSubmit)="onSubmit()" class="form-horizontal" #fe="ngForm">
+    
+        <div class="form-group">
+          <label class="control-label" for="name">Description</label>
+          <input id="editDescription" name="editDescription" type="text" [(value)]="newPayment.description" placeholder="description" class="form-control input-md" [(ngModel)]="newPayment.description"  required
+            #editDescription="ngModel" maxlength="20" >
+          <span class="help-block" *ngIf="editDescription.touched && !editDescription.valid">
+            <i>name is required.</i>
+          </span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="name">Value</label>
+            <input id="editValue" name="editValue" type="text" [(value)]="newPayment.value" placeholder="value" class="form-control input-md" [(ngModel)]="newPayment.value"  required
+              #editValue="ngModel" maxlength="20" >
+            <span class="help-block" *ngIf="editValue.touched && !editValue.valid">
+              <i>Value is required.</i>
+            </span>
+          </div>
+
+
+          <div class="form-group invisible">
+              <label class="control-label" for="studentId">Student</label>
+              <input id="editStudent" name="editStudent" type="text" [(value)]="newPayment.studentId" placeholder="value" class="form-control input-md" [(ngModel)]="newPayment.studentId"  required
+                #editStudent="ngModel" maxlength="20" >
+              <span class="help-block" *ngIf="editStudent.touched && !editStudent.valid">
+                <i>Value is required.</i>
+              </span>
+            </div>
+    
+        <hr>
+        <div style="text-align: center">
+          <button class="btn btn-success" type="submit" [disabled]="!f.valid">Edit</button>
+          <button type="button" (click)="showEditDialog = !showEditDialog" class="btn">Close</button>
+        </div>
+      </form>
+    
+    </app-dialog>
+    
+    <app-dialog [(visible)]="showRemoveDialog">
+        <h4>Remove payment</h4>
+        <hr>
+            <label class="control-label" for="name">Are you sure u want to remove this payment</label>
+          <hr>
+          <div style="text-align: center">
+            <button class="btn btn-danger" (click)="onRemoveConfirmed()">Remove</button>
+            <button type="button" (click)="showRemoveDialog = !showRemoveDialog" class="btn">Close</button>
+          </div>
+       
+      
+      </app-dialog>
