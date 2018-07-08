@@ -19,6 +19,9 @@ export class CourseComponent implements OnInit {
     departmentId: 1,
     name: "Softverske i informacione tehnologije"
   }];
+
+  showDialog: boolean = false;
+
   @ViewChild('f') addUserForm: NgForm;
 
   newCourse = {
@@ -77,5 +80,6 @@ export class CourseComponent implements OnInit {
       response => [this.courses.push(response), this.resetAddForm()],
       error => console.log(error)
     );
+    this.showDialog =! this.showDialog;
   }
 }
