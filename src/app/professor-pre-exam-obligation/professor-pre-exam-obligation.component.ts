@@ -12,20 +12,20 @@ import { PreExamObligationRecordsService } from '../student-pre-exam-obligation/
 export class ProfessorPreExamObligationComponent implements OnInit {
 
   constructor(private preExamObligationService: PreExamObligationervice,
-              private typeService: PreExamOTypeService,
-              private recordsServoce: PreExamObligationRecordsService) { }
+    private typeService: PreExamOTypeService,
+    private recordsServoce: PreExamObligationRecordsService) { }
 
-  preExamObligations=[];
-  preExamObligationsRecords=[];
-  types=[];
-  newPreExamObligation={
-    preExamOId:0,
-    name:"",
-    active:true,
-    preExamOTypeId:0,
-    maxPoints:0,
-    courseId:0
-    };
+  preExamObligations = [];
+  preExamObligationsRecords = [];
+  types = [];
+  newPreExamObligation = {
+    preExamOId: 0,
+    name: "",
+    active: true,
+    preExamOTypeId: 0,
+    maxPoints: 0,
+    courseId: 0
+  };
 
   showDialog: boolean = false;
   showEditDialog: boolean = false;
@@ -47,25 +47,22 @@ export class ProfessorPreExamObligationComponent implements OnInit {
   @ViewChild('fg') gradeObligationForm: NgForm;
 
   ngOnInit() {
-    this.newPreExamObligation.courseId=this.courseId;
+    this.newPreExamObligation.courseId = this.courseId;
     this.getPreExamObligationByCourseId(this.courseId);
   }
 
-  
-
-  getPreExamObligationByCourseId(id:number){
+  getPreExamObligationByCourseId(id: number) {
     this.preExamObligationService.getAllByCourse(id).subscribe(
       (response) => (this.preExamObligations = response.body),
       (error) => console.log(error)
     );
-
   }
 
   getobligationsRecords(id:number, sortParam: string ,  sortDirection: string){
     this.recordsServoce.getAllByPreExamObligation(id, sortParam, sortDirection).subscribe(
       (response) => (this.preExamObligationsRecords = response.body),
       (error) => console.log(error)
-    )
+    );
   }
 
   getTypes() {
@@ -75,89 +72,88 @@ export class ProfessorPreExamObligationComponent implements OnInit {
     );
   }
 
-  onRemove(id){
-    this.showRemoveDialog =! this.showRemoveDialog;
+  onRemove(id) {
+    this.showRemoveDialog = !this.showRemoveDialog;
     this.newPreExamObligation.preExamOId = id;
   }
 
-  onRemoveConfirmed(){
+  onRemoveConfirmed() {
     this.preExamObligationService.changeActive(this.newPreExamObligation.preExamOId).subscribe(
       response => [this.getPreExamObligationByCourseId(this.courseId)],
       error => console.log(error)
-    )
-    this.showRemoveDialog =! this.showRemoveDialog;
+    );
+    this.showRemoveDialog = !this.showRemoveDialog;
   }
 
   onGetById(id: number) {
     this.preExamObligationService.getOne(id)
       .subscribe(
-      (response: any) => (this.onPopulateJsonType(response.body.name, response.body.maxPoints,response.body.preExamOTypeId)),
-      (error) => console.log(error)
+        (response: any) => (this.onPopulateJsonType(response.body.name, response.body.maxPoints, response.body.preExamOTypeId)),
+        (error) => console.log(error)
       );
-    }
+  }
 
-    onPopulateJsonType(name: string, maxPoints:number, preExamOTypeId: number) {
-      this.newPreExamObligation.name = name;
-      this.newPreExamObligation.preExamOTypeId= preExamOTypeId;
-      this.newPreExamObligation.maxPoints = maxPoints;
+  onPopulateJsonType(name: string, maxPoints: number, preExamOTypeId: number) {
+    this.newPreExamObligation.name = name;
+    this.newPreExamObligation.preExamOTypeId = preExamOTypeId;
+    this.newPreExamObligation.maxPoints = maxPoints;
+  }
 
-    }
-
-  onEditPEO(id){
+  onEditPEO(id) {
     this.resetEditForm();
     this.getTypes();
-    this.newPreExamObligation.preExamOId=id;
-    this.actionForModal="edit";
+    this.newPreExamObligation.preExamOId = id;
+    this.actionForModal = "edit";
     this.onGetById(this.newPreExamObligation.preExamOId);
-    this.showEditDialog =! this.showEditDialog;
+    this.showEditDialog = !this.showEditDialog;
   }
 
-  onAddObligation(){
+  onAddObligation() {
     this.resetAddForm();
     this.getTypes();
-    this.newPreExamObligation.preExamOId=null;
-    this.newPreExamObligation.active=true;
+    this.newPreExamObligation.preExamOId = null;
+    this.newPreExamObligation.active = true;
     this.actionForModal = "add";
-    this.showDialog =! this.showDialog;
+    this.showDialog = !this.showDialog;
   }
 
-  onGrade(id){
+  onGrade(id) {
     this.resetGradeObligationForm();
     this.getobligationsRecords(id, this.sortParam , this.sortDirection);
     this.newPreExamObligation.preExamOId=id;
     this.actionForModal = "grade";
-    this.showGradeDialog =! this.showGradeDialog;
+    this.showGradeDialog = !this.showGradeDialog;
   }
 
   onPostGrade(){
     this.recordsServoce.gradeRecords(this.preExamObligationsRecords);
   }
 
-  onSetDate(id){
+  onSetDate(id) {
     this.resetSetObligationDateForm();
     this.newPreExamObligation.preExamOId = id;
-    this.actionForModal ="setDate"
+    this.actionForModal = "setDate";
     this.showSetDateDialog = !this.showSetDateDialog;
   }
 
-  onPutObligation(){
+  onPutObligation() {
     this.preExamObligationService.changeObligation(this.newPreExamObligation).subscribe(
       response => [this.getPreExamObligationByCourseId(this.courseId), this.resetEditForm()],
       error => console.log(error)
-    )
+    );
   }
 
   onPostNewType() {
     this.preExamObligationService.postNewObligation(this.newPreExamObligation).subscribe(
       response => [this.preExamObligations.push(response), this.resetAddForm()],
       error => console.log(error)
-    )
+    );
   }
 
   onSetNewDate(){
     this.recordsServoce.setObligationDate(this.newPreExamObligation.preExamOId, this.model.year, this.model.month, this.model.day).subscribe(
       error => console.log(error)
-    )
+    );
   }
 
   onSubmit() {
@@ -166,12 +162,12 @@ export class ProfessorPreExamObligationComponent implements OnInit {
       this.resetEditForm();
       this.showEditDialog = !this.showEditDialog;
     }
-    if(this.actionForModal === 'add'){
+    if (this.actionForModal === 'add') {
       this.onPostNewType();
       this.resetAddForm();
-      this.showDialog =! this.showDialog;
+      this.showDialog = !this.showDialog;
     }
-    if(this.actionForModal === 'setDate'){
+    if (this.actionForModal === 'setDate') {
       this.onSetNewDate();
       this.resetSetObligationDateForm();
       this.showSetDateDialog = !this.showSetDateDialog;
@@ -182,7 +178,6 @@ export class ProfessorPreExamObligationComponent implements OnInit {
       console.log("1");
       this.showGradeDialog = !this.showGradeDialog;
     }
-    
   }
 
   onSort(sortParam: string) {
@@ -197,15 +192,15 @@ export class ProfessorPreExamObligationComponent implements OnInit {
     this.addObligationForm.resetForm();
   }
 
-  resetEditForm(){
+  resetEditForm() {
     this.editObligationForm.resetForm();
   }
 
-  resetSetObligationDateForm(){
+  resetSetObligationDateForm() {
     this.setObligationDateForm.resetForm();
   }
 
-  resetGradeObligationForm(){
+  resetGradeObligationForm() {
     this.gradeObligationForm.resetForm();
   }
 }

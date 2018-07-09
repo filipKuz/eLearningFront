@@ -32,6 +32,15 @@ import { EdocumentsComponent } from './edocuments/edocuments.component';
 import { EdocumentService } from './edocuments/edocument.service';
 import { StudentCourseComponent } from './student-course/student-course.component';
 import { ProfessorCourseComponent } from './professor-course/professor-course.component';
+import { ExamService } from './shared/exam.service';
+import { ProfessorTypeComponent } from './professor-type/professor-type.component';
+import { ProfessorTypeService } from './professor-type/professor_type.service';
+import { PaymentsComponent } from './payments/payments.component';
+import { PaymentsService } from './payments/payments.service';
+import { StudentPaymentsComponent } from './student-payments/student-payments.component';
+import { StudentPaymentsService } from './student-payments/student_payments.service';
+import { CourseComponent } from './course/course.component';
+import { CourseService } from './course/course.service';
 
 const routes: Routes = [
   /* {
@@ -61,6 +70,26 @@ const routes: Routes = [
   {
     path: 'preExamOTypes',
     component: PreExamOTypeComponent
+  },
+  {
+    path: "professorCourses",
+    component: ProfessorCourseComponent
+  },
+  {
+    path: "professor_types",
+    component: ProfessorTypeComponent
+  },
+  {
+    path: "payments",
+    component: PaymentsComponent
+  },
+  {
+    path: "student_payments",
+    component: PaymentsComponent
+  },
+  {
+    path: "courses",
+    component: CourseComponent
   }
 ];
 
@@ -80,6 +109,10 @@ const routes: Routes = [
     EdocumentsComponent,
     StudentCourseComponent,
     ProfessorCourseComponent,
+    ProfessorTypeComponent,
+    PaymentsComponent,
+    StudentPaymentsComponent,
+    CourseComponent
   ],
   imports: [
     BrowserModule,
@@ -88,11 +121,13 @@ const routes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(routes), NgbModule.forRoot()
   ],
-  providers: [UserService, DepartmentService, AuthorizationService, TokenInterceptorService, JwtInterceptorService, PreExamObligationRecordsService, PreExamOTypeService, PreExamObligationervice, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptorService,
-    multi: true
-  }, {
+  providers: [UserService, DepartmentService, AuthorizationService, TokenInterceptorService,
+    JwtInterceptorService, PreExamObligationRecordsService, PreExamOTypeService, PreExamObligationervice, CourseService,
+     ExamService,ProfessorTypeService ,PaymentsService, StudentPaymentsService ,{
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }, {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptorService,
       multi: true

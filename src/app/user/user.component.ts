@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { NgForm } from '@angular/forms';
 import { RoleService } from '../shared/role.service';
 import { Router } from '@angular/router';
+import { ProfessorTypeService } from '../professor-type/professor_type.service';
 
 @Component({
   selector: 'app-user',
@@ -12,10 +13,11 @@ import { Router } from '@angular/router';
 export class UserComponent implements OnInit {
 
   constructor(private userService: UserService,
-    private roleService: RoleService,
+    private roleService: RoleService, private professorTypeService:ProfessorTypeService,
     private router: Router) { }
   users = [];
   roles = [];
+  professorTypes = [];
   newUser = {
     username: "",
     dateOfBirth: ""
@@ -42,6 +44,7 @@ export class UserComponent implements OnInit {
   @ViewChild('f') addUserForm: NgForm;
 
   ngOnInit() {
+    this.getProfessorTypes();
     this.getAllUsers();
   }
 
@@ -77,7 +80,7 @@ export class UserComponent implements OnInit {
       this.userService.isUsernameUnique(this.newUser.username, 'add', '').subscribe(
         response => this.isUnique = response,
         error => console.log(error)
-      )
+      );
     }
   }
 
@@ -128,6 +131,13 @@ export class UserComponent implements OnInit {
       response => this.roles = response,
       error => console.log(error)
     );
+  }
+
+  getProfessorTypes(){
+    this.professorTypeService.getAll().subscribe(
+      (response) => (this.professorTypes = response.body),
+    (error) => console.log(error)
+  );
   }
 
 }

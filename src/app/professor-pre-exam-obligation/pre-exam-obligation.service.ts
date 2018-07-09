@@ -12,28 +12,26 @@ export class PreExamObligationervice {
     constructor(private http: HttpClient) { }
 
     getAll(): Observable<any> {
-        return this.http.get(this.path, { observe: 'response' })
+        return this.http.get(this.path, { observe: 'response' });
     }
 
     postNewObligation(newType: any): Observable<any> {
         return this.http.post(this.path, newType);
     }
 
-    getOne(id:number): Observable<any>{
-        return this.http.get(this.path + "/" + id,{ observe: 'response' });
+    getOne(id: number): Observable<any> {
+        return this.http.get(this.path + "/" + id, { observe: 'response' });
     }
 
-    changeObligation(type:any): Observable<any> {
-        return this.http.put(this.path ,type);
+    changeObligation(type: any): Observable<any> {
+        return this.http.put(this.path, type);
     }
 
     changeActive(id: number): Observable<any> {
-        return this.http.put(this.path + "/" + id, null, {responseType: 'text'});
+        return this.http.put(this.path + "/" + id, null, { responseType: 'text' });
     }
 
     getAllByCourse(cId: number): Observable<any> {
-        return this.http.get(this.path + "/" + "course" + "/"+ cId, { observe: 'response' })
+        return this.http.get(this.path + "/" + "course" + "/" + cId, { observe: 'response' })
     }
-
-    
 }

@@ -190,10 +190,14 @@
             <img src="assets/img/{{user.imagePath}}" class="mx-auto img-fluid img-circle d-block" alt="avatar">
             <h6 class="mt-2">Upload a different photo</h6>
             <label class="btn btn-success cursor-pointer" style="width:75px;">
-                Browse <input type="file" id="file" class="custom-file-input cursor-pointer" (change)="fileChange($event)">
+                Browse
+                <input type="file" id="file" class="custom-file-input cursor-pointer" (change)="fileChange($event)">
             </label>
         </div>
     </div>
     <app-student-pre-exam-obligation [(userId)]="userId" [(courseId)]="courseId"></app-student-pre-exam-obligation>
     <app-professor-pre-exam-obligation [(userId)]="userId" [(courseId)]="courseId"></app-professor-pre-exam-obligation>
+    <div *ngIf="user.roleId == 3">
+        <app-student-payments [(userId)]="userId"></app-student-payments>
+    </div>
 </div>
