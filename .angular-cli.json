@@ -6,7 +6,7 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "C:/Users/vulov/Desktop/angular-Java/eLearning/src/main/resources/static",
+      "outDir": "C:/Users/bojan/git/eLearning/src/main/resources/static",
       "assets": [
         "assets",
         "favicon.ico"
