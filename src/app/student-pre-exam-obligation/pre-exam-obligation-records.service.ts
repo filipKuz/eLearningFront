@@ -19,10 +19,14 @@ export class PreExamObligationRecordsService {
         return this.http.get(this.path + "/student"+ "/" + sId + "/" + "course" + "/" + cId, { observe: 'response' })
     }
     
-    getAllByPreExamObligation(id: number): Observable<any> {
-        return this.http.get(this.path + "/preexamobligation"+ "/" + id , { observe: 'response' })
+    getAllByPreExamObligation(id: number, sortParam: string, sortDirection: string): Observable<any> {
+        return this.http.get(this.path + "/preexamobligation/" + id + "/sortpar/" + sortParam + "/sortdir/" + sortDirection , { observe: 'response' })
     }
     setObligationDate(id: number, year: number, month: number, day:number){
         return this.http.post(this.path + "/create-records" + "/" + id + "/" + year + "/" + month + "/" + day , null)
+    }
+
+    gradeRecords(reccords: any){
+        return this.http.post(this.path + "/grade", reccords)
     }
 }

@@ -10,7 +10,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 @Injectable()
 export class AuthorizationService {
 
-    private readonly authUrl = "/login";
+    private readonly authUrl = "/http://localhost:8080/login";
 
     private headers = new HttpHeaders();
 
