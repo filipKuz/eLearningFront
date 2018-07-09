@@ -25,3 +25,8 @@ export class PreExamObligationRecordsService {
     setObligationDate(id: number, year: number, month: number, day: number) {
         return this.http.post(this.path + "/create-records" + "/" + id + "/" + year + "/" + month + "/" + day, null)
     }
+
+    gradeRecords(reccords: any){
+        return this.http.post(this.path + "/grade", reccords)
+    }
+}
