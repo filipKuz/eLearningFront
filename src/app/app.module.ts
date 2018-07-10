@@ -88,6 +88,10 @@ const routes: Routes = [
     component: PaymentsComponent
   },
   {
+    path: "department",
+    component: DepartmentComponent
+  },
+  {
     path: "courses",
     component: CourseComponent
   }

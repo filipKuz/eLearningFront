@@ -173,9 +173,7 @@ export class ProfessorPreExamObligationComponent implements OnInit {
       this.showSetDateDialog = !this.showSetDateDialog;
     }
     if(this.actionForModal === 'grade'){
-      console.log(this.preExamObligationsRecords);
       this.onPostGrade();
-      console.log("1");
       this.showGradeDialog = !this.showGradeDialog;
     }
   }
