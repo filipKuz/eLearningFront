@@ -21,11 +21,15 @@ export class CourseService {
     }
 
     delete(id: number): Observable<any> {
-        return this.http.delete(this.path + "/" + id, { observe: 'response' });
+        return this.http.delete(this.path + "/" + id,{responseType: 'text'});
     }
 
     postNewCourse(newCourse: any): Observable<any> {
         return this.http.post(this.path, newCourse);
+    }
+
+    postNewStudentCourse(id, ids): Observable<any> {
+        return this.http.post(this.path + '/'+id, ids);
     }
 
 }
