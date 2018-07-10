@@ -32,7 +32,10 @@ export class ProfessorPreExamObligationComponent implements OnInit {
   showRemoveDialog: boolean = false;
   showSetDateDialog: boolean = false;
   showGradeDialog: boolean = false;
+  sortDirection: string = "asc";
+  isAscending : boolean = true;
   actionForModal = "";
+  sortParam = "date";
   model;
 
   @Input() userId: number;
@@ -55,8 +58,8 @@ export class ProfessorPreExamObligationComponent implements OnInit {
     );
   }
 
-  getobligationsRecords(id: number) {
-    this.recordsServoce.getAllByPreExamObligation(id).subscribe(
+  getobligationsRecords(id:number, sortParam: string ,  sortDirection: string){
+    this.recordsServoce.getAllByPreExamObligation(id, sortParam, sortDirection).subscribe(
       (response) => (this.preExamObligationsRecords = response.body),
       (error) => console.log(error)
     );
@@ -116,14 +119,14 @@ export class ProfessorPreExamObligationComponent implements OnInit {
 
   onGrade(id) {
     this.resetGradeObligationForm();
-    this.getobligationsRecords(id);
-    this.newPreExamObligation.preExamOId = id;
+    this.getobligationsRecords(id, this.sortParam , this.sortDirection);
+    this.newPreExamObligation.preExamOId=id;
     this.actionForModal = "grade";
     this.showGradeDialog = !this.showGradeDialog;
   }
 
-  onPostGrade() {
-    // this.preExamObligations.
+  onPostGrade(){
+    this.recordsServoce.gradeRecords(this.preExamObligationsRecords);
   }
 
   onSetDate(id) {
@@ -147,9 +150,7 @@ export class ProfessorPreExamObligationComponent implements OnInit {
     );
   }
 
-  onSetNewDate() {
-    console.log("aa");
-    console.log(this.model.day);
+  onSetNewDate(){
     this.recordsServoce.setObligationDate(this.newPreExamObligation.preExamOId, this.model.year, this.model.month, this.model.day).subscribe(
       error => console.log(error)
     );
@@ -171,11 +172,18 @@ export class ProfessorPreExamObligationComponent implements OnInit {
       this.resetSetObligationDateForm();
       this.showSetDateDialog = !this.showSetDateDialog;
     }
-    if (this.actionForModal === 'grade') {
-      this.onSetNewDate();
-      this.resetGradeObligationForm();
-      this.showGradeDialog = !this.showSetDateDialog;
+    if(this.actionForModal === 'grade'){
+      this.onPostGrade();
+      this.showGradeDialog = !this.showGradeDialog;
     }
+  }
+
+  onSort(sortParam: string) {
+    this.isAscending = !this.isAscending;
+    this.isAscending ? this.sortDirection = "asc" : this.sortDirection = "desc";
+    this.sortParam = sortParam;
+    this.onGrade(this.newPreExamObligation.preExamOId);
+    this.showGradeDialog =! this.showGradeDialog;
   }
 
   resetAddForm() {

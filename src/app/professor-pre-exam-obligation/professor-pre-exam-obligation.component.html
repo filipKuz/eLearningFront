@@ -85,7 +85,7 @@
 
     <div class="form-group">
         <label class="control-label" for="maxPoints">Max points</label>
-        <input id="editMaxPoints" name="editMaxPoints" type="number" [(value)]="newPreExamObligation.maxPoints" placeholder="maxPoints..." class="form-control input-md" [(ngModel)]="newPreExamObligation.maxPoints"  required
+        <input id="editMaxPoints" name="editMaxPoints" type="number" min="0" [(value)]="newPreExamObligation.maxPoints" placeholder="maxPoints..." class="form-control input-md" [(ngModel)]="newPreExamObligation.maxPoints"  required
           #editMaxPoints="ngModel" >
         <span class="help-block" *ngIf="editMaxPoints.touched && !editMaxPoints.valid">
           <i>maxPoints is required and must be a number.</i>
@@ -152,14 +152,14 @@
       <hr>
       <form (ngSubmit)="onSubmit()" class="form-horizontal" #fg="ngForm">
     
-        <table class="table table-hover"  style="width: 700px;">
+        <table class="table table-hover">
           <thead class="thead-light">
-            <tr>
-              <th>Student name</th>
-              <th>Tr number</th>
-              <th>Date</th>
-              <th>Points</th>
-              <th>Passed</th>
+            <tr >
+              <th>Student name<i class="fa fa-fw fa-sort hand" (click)="onSort('lastName')"></i></th>
+              <th>Tr number <i class="fa fa-fw fa-sort hand" (click)="onSort('transcriptNumber')"></i></th>
+              <th>Date <i class="fa fa-fw fa-sort hand" (click)="onSort('date')"></i></th>
+              <th>Points <i class="fa fa-fw fa-sort hand" (click)="onSort('points')"></i></th>
+              <th>Passed <i class="fa fa-fw fa-sort hand" (click)="onSort('passed')"></i></th>
             </tr>
           </thead>
           <tbody>
@@ -168,15 +168,15 @@
               <td>{{r.trNumber}}</td>
               <td>{{r.date}}</td>
               <td>
-                <input  type="number" [(value)]="r.points" placeholder="Points" class="form-control input-md" [(ngModel)]="r.points" 
-                  #gradePoints="ngModel" style="width: 100px;" >
+                <input type="number" [(value)]="r.points" placeholder="points" class="form-control input-md" style="width: 100px;" >
               </td>
               
-              <td>
-                <input type="checkbox" [(value)]="r.passed" class="form-control input-md" [(ngModel)]="r.passed" 
-                  #gradePassed="ngModel" style="width: 20px;" >
+              <td class="text-center" style="vertical-align:middle">
+                <input type="checkbox" [(value)] = "r.passed" class="form-control input-md" style="width: 40px;" *ngIf="r.passed" checked>
+                <input type="checkbox" [(value)] = "r.passed" class="form-control input-md" style="width: 40px;" *ngIf="!r.passed" >
               </td>
-              <!-- <td>{{r.points}}</td> 
+              <!--
+               <td>{{r.points}}</td> 
               <td>{{r.passed}}</td> -->
             </tr>
           </tbody>
