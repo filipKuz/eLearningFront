@@ -1,3 +1,41 @@
-<p>
-  professor-exam-records works!
-</p>
+<div>
+<h4>Grade</h4>
+      <hr>
+      <form (ngSubmit)="onSubmit()" class="form-horizontal" #fg="ngForm">
+    
+        <table class="table table-hover">
+          <thead class="thead-light">
+            <tr >
+              <th>Student name<i class="fa fa-fw fa-sort hand"></i></th>
+              <th>Tr number <i class="fa fa-fw fa-sort hand" ></i></th>
+              <th>Date <i class="fa fa-fw fa-sort hand" ></i></th>
+              <th>Pre exam obligation points <i class="fa fa-fw fa-sort hand" ></i></th>
+              <th>Points</th>
+              <th>Grade <i class="fa fa-fw fa-sort hand" ></i></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let r of examRecords">
+              <td>{{r.studentName}} {{r.studentLastName}}</td>
+              <td>{{r.trNumber}}</td>
+              <td>{{r.date}}</td>
+              <td>{{r.preExamObligationPoints}}</td>
+              <td>
+                <input type="number" [(value)]="r.points" placeholder="points" class="form-control input-md" style="width: 100px;" >
+              </td>
+              <td>
+                {{r.grade}}
+              </td>
+              <!--
+               <td>{{r.points}}</td> 
+              <td>{{r.passed}}</td> -->
+            </tr>
+          </tbody>
+        </table>
+
+        <hr>
+        <div style="text-align: center">
+          <button class="btn btn-warning" type="submit">Grade</button>
+        </div>
+      </form>
+</div>

@@ -41,6 +41,8 @@ import { StudentPaymentsComponent } from './student-payments/student-payments.co
 import { StudentPaymentsService } from './student-payments/student_payments.service';
 import { CourseComponent } from './course/course.component';
 import { CourseService } from './course/course.service';
+import { ProfessorExamRecordsComponent } from './professor-exam-records/professor-exam-records.component';
+import { ExamRecordsService } from './shared/examRecordsService';
 
 const routes: Routes = [
   /* {
@@ -116,6 +118,7 @@ const routes: Routes = [
     ProfessorTypeComponent,
     PaymentsComponent,
     StudentPaymentsComponent,
+    ProfessorExamRecordsComponent,
     CourseComponent
   ],
   imports: [
@@ -127,7 +130,7 @@ const routes: Routes = [
   ],
   providers: [UserService, DepartmentService, AuthorizationService, TokenInterceptorService,
     JwtInterceptorService, PreExamObligationRecordsService, PreExamOTypeService, PreExamObligationervice, CourseService,
-     ExamService,ProfessorTypeService ,PaymentsService, StudentPaymentsService ,{
+     ExamService,ProfessorTypeService ,PaymentsService,ExamService,ExamRecordsService, StudentPaymentsService ,{
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true

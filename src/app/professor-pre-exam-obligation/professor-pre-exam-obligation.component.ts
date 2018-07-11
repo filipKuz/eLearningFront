@@ -126,7 +126,11 @@ export class ProfessorPreExamObligationComponent implements OnInit {
   }
 
   onPostGrade(){
-    this.recordsServoce.gradeRecords(this.preExamObligationsRecords);
+    this.recordsServoce.gradeRecords(this.preExamObligationsRecords)
+      .subscribe(
+        response => console.log(response),
+        error => console.log(error)
+      );
   }
 
   onSetDate(id) {
@@ -176,6 +180,10 @@ export class ProfessorPreExamObligationComponent implements OnInit {
       this.onPostGrade();
       this.showGradeDialog = !this.showGradeDialog;
     }
+  }
+
+  click(id:number) {
+    console.log(id);
   }
 
   onSort(sortParam: string) {
