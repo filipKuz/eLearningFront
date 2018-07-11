@@ -1,3 +1,30 @@
-<p>
-  edocuments works!
-</p>
+<div class="pt-5">
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Transcript num.</th>
+            <th scope="col">Name</th>
+            <th scope="col">Size</th>
+            <th scope="col">Type</th>
+            <th scope="col">Mime type</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let doc of documents;let i=index">
+            <th scope="row">{{doc.transcriptNumber}}</th>
+            <td>{{nuxeoResponse[i].title}}</td>
+            <td>{{nuxeoResponse[i].properties['file:content'].length}}</td>
+            <td>{{nuxeoResponse[i].type}}</td>
+            <td>{{nuxeoResponse[i].properties['file:content']['mime-type']}}</td>
+            <td><a type="button" target="_blank" href="{{nuxeoResponse[i].contextParameters.preview.url}}" class="btn btn-primary btn-sm">Preview</a>
+                </td>
+        </tr>
+    </tbody>
+</table>
+<h6 class="mt-2">Upload new document</h6>
+<label class="btn btn-success cursor-pointer" style="width:75px;">
+    Browse
+    <input type="file" id="file" class="custom-file-input cursor-pointer" (change)="fileChange($event)">
+</label>
+</div>

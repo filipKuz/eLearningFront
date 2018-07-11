@@ -1,28 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">ELearning App</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/users" routerLinkActive="active">Users</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/preExamOTypes" routerLinkActive="active">PreExamOTypes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/documents" routerLinkActive="active">Documents</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav">
-            <a class="nav-link" *ngIf="!isLoggedIn" routerLink="/login" routerLinkActive="active">Login</a>
-        </ul>
-        <ul class="navbar-nav" *ngIf="isLoggedIn">
-            <a class="nav-link hand" (click)="logOut()">LogOut</a>
-        </ul>
-    </div>
-</nav>
+<app-navigation></app-navigation>
 <div class="container">
     <router-outlet></router-outlet>
 </div>

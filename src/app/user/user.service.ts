@@ -15,6 +15,10 @@ export class UserService {
         return this.http.get(this.path + "/" + id);
     }
 
+    getUserByUsername(username:string) {
+        return this.http.get(this.path + "/get-by-username/" + username);
+    }
+
     getAll(page: number, size: number, sortParam: string, sortDirection: string, term: string): Observable<any> {
         return this.http.get(this.path + "?term=" + term + "&page=" + page + "&size=" + size + "&sort=" + sortParam + "," + sortDirection, { observe: 'response' });
     }
