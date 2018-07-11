@@ -26,9 +26,11 @@ export class PreExamObligationRecordsService {
         return this.http.post(this.path + "/create-records" + "/" + id + "/" + year + "/" + month + "/" + day, null , { observe: 'response' })
     }
 
+    getPoints(studentId: number, courseId: number): Observable<any>{
+        return this.http.get(this.path + "/points/student/" + studentId + "/course/" + courseId, {observe: 'response'})
+    }
+
     gradeRecords(reccords: any): Observable<any> {
-        console.log("test");
-        console.log(reccords);
         return this.http.post(this.path + "/grade", reccords, { observe: 'response' });
     }
 }

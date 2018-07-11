@@ -16,10 +16,10 @@
           </thead>
           <tbody>
             <tr *ngFor="let r of examRecords">
-              <td>{{r.studentName}} {{r.studentLastName}}</td>
-              <td>{{r.trNumber}}</td>
-              <td>{{r.date}}</td>
-              <td>{{r.preExamObligationPoints}}</td>
+              <td>{{r.studentFirstName}} {{r.studentLastName}}</td>
+              <td>{{r.studentTranscriptNumber}}</td>
+              <td>{{r.examDate}}</td>
+              <td>{{r.preExamPoints}}</td>
               <td>
                 <input type="number" [(value)]="r.points" placeholder="points" class="form-control input-md" style="width: 100px;" >
               </td>
