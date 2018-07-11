@@ -22,7 +22,7 @@ export class AuthorizationService {
             .map((response: HttpResponse<any>) => {
                 console.log(response);
                 let token = response.headers.has("Authorization");
-                console.log("token: " + token)
+                console.log("token: " + token);
                 if (token) {
                     localStorage.setItem('currentUser', JSON.stringify({ userName: userName, token: response.headers.get('Authorization') }));
                     return true;
@@ -32,8 +32,7 @@ export class AuthorizationService {
             }).catch((error: any) => {
                 if (error.status === 401) {
                     return Observable.throw('Ilegal login');
-                }
-                else {
+                } else {
                     return Observable.throw(error.json().error || 'Server error');
                 }
             });

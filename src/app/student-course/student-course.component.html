@@ -1,1 +1,54 @@
-<app-student-pre-exam-obligation [(userId)]="userId" [(courseId)]="courseId"></app-student-pre-exam-obligation>
+<table *ngIf="exams.length > 0" class="table table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>Num</th>
+            <th>Date</th>
+            <th style="text-align: center">Apply for an exam</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let e of exams; let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{e.date}}</td>
+            <td style="text-align: center">
+                <button class="btn btn-success hand" (click)="onApplyForExam(e.examId)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<app-dialog [(visible)]="showApplyDialog">
+    <h4>Apply for exam</h4>
+    <hr>
+    <label class="control-label" for="name">Are you sure?</label>
+    <hr>
+    <div style="text-align: center">
+        <button class="btn btn-success" (click)="onApplyConfirmed()">Apply</button>
+        <button type="button" (click)="showApplyDialog = !showApplyDialog" class="btn">Close</button>
+    </div>
+</app-dialog>
+
+<hr>
+
+<h3>Exam records</h3>
+
+<table *ngIf="records.length > 0" class="table table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>Num</th>
+            <th>Grade</th>
+            <th style="text-align: center">Apply for an exam</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let e of exams; let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{e.date}}</td>
+            <td style="text-align: center">
+                <button class="btn btn-success hand" (click)="onApplyForExam(e.examId)">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -28,7 +28,8 @@ export class CourseComponent implements OnInit {
     courseId: 0,
     departmentId: 0,
     name: "",
-    active: false
+    active: false,
+    studentIds: []
   }
 
   ngOnInit() {
@@ -46,7 +47,7 @@ export class CourseComponent implements OnInit {
 
   getAllStudents() {
     this.userService.getAll(0, 99, "userId,asc", "", "").subscribe(
-      (response) => (this.students = response.body),
+      (response) => [this.students = response.body,console.log(this.students)],
       (error) => console.log(error)
     );
   }
@@ -77,9 +78,17 @@ export class CourseComponent implements OnInit {
     this.newCourse.departmentId = this.newCourse.departmentId[0];
     console.log(this.newCourse);
     this.courseService.postNewCourse(this.newCourse).subscribe(
-      response => [this.courses.push(response), this.resetAddForm()],
+      response => [this.courses.push(response),this.addStudentCourse(response, this.newCourse.studentIds)],
       error => console.log(error)
     );
     this.showDialog =! this.showDialog;
+  }
+
+  addStudentCourse(course, ids: any){
+    console.log(course);
+    this.courseService.postNewStudentCourse(course.courseId, ids).subscribe(
+      response => [this.resetAddForm()],
+      error => console.log(error)
+    );
   }
 }

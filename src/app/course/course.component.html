@@ -66,7 +66,7 @@
         <div class="form-group">
           <label for="studentSelect" class="control-label">Select students</label>
           <select name="studentSelect" [(ngModel)]="newCourse.studentIds" multiple class="form-control" id="studentSelect" required>
-            <option *ngFor="let s of students" value="{{s.studentId}}">
+            <option *ngFor="let s of students" value="{{s.userId}}">
               {{s.firstName}} {{s.lastName}}
              </option>
 
