@@ -4,9 +4,9 @@ import { Observable } from "rxjs/Observable";
 
 
 @Injectable()
-export class DepartmentService {
-    
-    private readonly path = "/api/departments";
+export class PaymentsService {
+
+    private readonly path = "/api/payments";
 
     constructor(private http: HttpClient) { }
 
@@ -14,20 +14,19 @@ export class DepartmentService {
         return this.http.get(this.path, { observe: 'response' })
     }
 
-    postNewDep(newDepartment: any): Observable<any> {
-        return this.http.post(this.path, newDepartment);
+    postNewType(newPayment: any): Observable<any> {
+        return this.http.post(this.path, newPayment);
     }
 
     getOne(id:number): Observable<any>{
         return this.http.get(this.path + "/" + id,{ observe: 'response' });
     }
 
-    changeDep(newDepartment:any): Observable<any> {
-        return this.http.put(this.path ,newDepartment);
+    editType(type:any): Observable<any> {
+        return this.http.put(this.path ,type);
     }
 
     changeActive(id: number): Observable<any> {
-        return this.http.put(this.path + "/" + id, null, {responseType: 'text'});
+        return this.http.delete(this.path + "/" + id, {responseType: 'text'});
     }
-
 }

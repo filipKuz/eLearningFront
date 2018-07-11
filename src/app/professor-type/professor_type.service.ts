@@ -3,10 +3,11 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 
 
+
 @Injectable()
-export class DepartmentService {
-    
-    private readonly path = "/api/departments";
+export class ProfessorTypeService {
+
+    private readonly path = "/api/professor_types";
 
     constructor(private http: HttpClient) { }
 
@@ -14,20 +15,19 @@ export class DepartmentService {
         return this.http.get(this.path, { observe: 'response' })
     }
 
-    postNewDep(newDepartment: any): Observable<any> {
-        return this.http.post(this.path, newDepartment);
+    postNewType(newType: any): Observable<any> {
+        return this.http.post(this.path, newType);
     }
 
     getOne(id:number): Observable<any>{
         return this.http.get(this.path + "/" + id,{ observe: 'response' });
     }
 
-    changeDep(newDepartment:any): Observable<any> {
-        return this.http.put(this.path ,newDepartment);
+    editType(type:any): Observable<any> {
+        return this.http.put(this.path ,type);
     }
 
     changeActive(id: number): Observable<any> {
-        return this.http.put(this.path + "/" + id, null, {responseType: 'text'});
+        return this.http.delete(this.path + "/" + id, {responseType: 'text'});
     }
-
 }

@@ -1,1 +1,91 @@
-<app-professor-pre-exam-obligation [(userId)]="userId" [(courseId)]="courseId"></app-professor-pre-exam-obligation>
+<h2>{{course}} - Exams</h2>
+<div class="container-fluid pt-5">
+    <table class="table table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th>Num</th>
+                <th>Date</th>
+                <th>Edit date</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let e of exams; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{e.date}}</td>
+                <td>
+                     &nbsp;<button class="btn btn-info hand" (click)="onEditExam(e.examId)">
+                       <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </button>
+                </td>
+                <td>
+                     &nbsp;<button class="btn btn-danger hand" (click)="onRemoveExam(e.examId)">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button class="btn btn-primary hand" (click)="onAddExam()">New Exam</button>
+</div>
+
+<app-dialog [(visible)]="showDialog">
+    <h4>Add Exam</h4>
+    <hr>
+    <form (ngSubmit)="setNewDate(newDate.value);onSubmit()" class="form-horizontal" #addForm="ngForm">
+        <div class="form-group">
+            <label class="control-label" for="examDate">Exam date</label>
+            <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="newDate" ngbDatepicker
+                    required #dp="ngbDatepicker" #newDate>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button">
+                        <img src="assets/img/calendar-icon.png" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                    </button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div style="text-align: center">
+            <button class="btn btn-primary" type="submit" [disabled]="!addForm.valid">Add</button>
+            <button type="button" (click)="showDialog = !showDialog" class="btn">Close</button>
+        </div>
+    </form>
+
+</app-dialog>
+
+<app-dialog [(visible)]="showEditDialog">
+    <h4>Set exam date</h4>
+    <hr>
+    <form (ngSubmit)="onSubmit()" class="form-horizontal" #editForm="ngForm">
+        <div class="form-group">
+            <label class="control-label" for="examDate">Set date</label>
+            <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="examDate" [(ngModel)]="model" ngbDatepicker required #d="ngbDatepicker">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                        <img src="assets/img/calendar-icon.png" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <div style="text-align: center">
+            <button class="btn btn-info" type="submit" [disabled]="!editForm.valid">Set date</button>
+            <button type="button" (click)="showEditDialog = !showEditDialog" class="btn">Close</button>
+        </div>
+    </form>
+</app-dialog>
+
+<app-dialog [(visible)]="showRemoveDialog">
+    <h4>Remove Exam</h4>
+    <hr>
+    <label class="control-label" for="name">Are you sure?</label>
+    <hr>
+    <div style="text-align: center">
+        <button class="btn btn-danger" (click)="onRemoveConfirmed()">Remove</button>
+        <button type="button" (click)="showRemoveDialog = !showRemoveDialog" class="btn">Close</button>
+    </div>
+</app-dialog>

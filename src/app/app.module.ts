@@ -37,6 +37,17 @@ import { DataService } from './shared/data.service';
 import { AdminGuard } from './guard/admin.guard';
 import { AllDocumentsComponent } from './all-documents/all-documents.component';
 import { AllDocumentsService } from './all-documents/all-documents.service';
+import { ExamService } from './shared/exam.service';
+import { ProfessorTypeComponent } from './professor-type/professor-type.component';
+import { ProfessorTypeService } from './professor-type/professor_type.service';
+import { PaymentsComponent } from './payments/payments.component';
+import { PaymentsService } from './payments/payments.service';
+import { StudentPaymentsComponent } from './student-payments/student-payments.component';
+import { StudentPaymentsService } from './student-payments/student_payments.service';
+import { CourseComponent } from './course/course.component';
+import { CourseService } from './course/course.service';
+import { ProfessorExamRecordsComponent } from './professor-exam-records/professor-exam-records.component';
+import { ExamRecordsService } from './shared/examRecordsService';
 
 const routes: Routes = [
   /* {
@@ -71,6 +82,30 @@ const routes: Routes = [
   {
     path: 'preExamOTypes',
     component: PreExamOTypeComponent
+  },
+  {
+    path: "professorCourses",
+    component: ProfessorCourseComponent
+  },
+  {
+    path: "professor_types",
+    component: ProfessorTypeComponent
+  },
+  {
+    path: "payments",
+    component: PaymentsComponent
+  },
+  {
+    path: "student_payments",
+    component: PaymentsComponent
+  },
+  {
+    path: "department",
+    component: DepartmentComponent
+  },
+  {
+    path: "courses",
+    component: CourseComponent
   }
 ];
 
@@ -91,7 +126,12 @@ const routes: Routes = [
     StudentCourseComponent,
     ProfessorCourseComponent,
     NavigationComponent,
-    AllDocumentsComponent
+    AllDocumentsComponent,
+    ProfessorTypeComponent,
+    PaymentsComponent,
+    StudentPaymentsComponent,
+    ProfessorExamRecordsComponent,
+    CourseComponent
   ],
   imports: [
     BrowserModule,
@@ -100,11 +140,13 @@ const routes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(routes), NgbModule.forRoot()
   ],
-  providers: [UserService, DepartmentService, AuthorizationService, TokenInterceptorService, JwtInterceptorService, PreExamObligationRecordsService, PreExamOTypeService, PreExamObligationervice, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptorService,
-    multi: true
-  }, {
+  providers: [UserService, DepartmentService, AuthorizationService, TokenInterceptorService,
+    JwtInterceptorService, PreExamObligationRecordsService, PreExamOTypeService, PreExamObligationervice, CourseService,
+    ExamService, ProfessorTypeService, PaymentsService, ExamService, ExamRecordsService, StudentPaymentsService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }, {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptorService,
       multi: true

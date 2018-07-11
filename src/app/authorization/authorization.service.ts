@@ -30,8 +30,7 @@ export class AuthorizationService {
             }).catch((error: any) => {
                 if (error.status === 401) {
                     return Observable.throw('Ilegal login');
-                }
-                else {
+                } else {
                     return Observable.throw(error.json().error || 'Server error');
                 }
             });

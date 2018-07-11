@@ -2,8 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 
-
-
 @Injectable()
 export class UserService {
 
@@ -21,6 +19,10 @@ export class UserService {
 
     getAll(page: number, size: number, sortParam: string, sortDirection: string, term: string): Observable<any> {
         return this.http.get(this.path + "?term=" + term + "&page=" + page + "&size=" + size + "&sort=" + sortParam + "," + sortDirection, { observe: 'response' });
+    }
+
+    getAllForPayments(): Observable<any> {
+        return this.http.get(this.path + "/users_payments")
     }
 
     getActiveUsers(page: number, size: number, sortParam: string, sortDirection: string, term: string): Observable<any> {
