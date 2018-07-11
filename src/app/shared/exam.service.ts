@@ -22,6 +22,10 @@ export class ExamService {
         return this.http.get(this.path + "/by-professor-course?professorUsername=" + professorUsername + "&courseId=" + courseId, { observe: 'response' });
     }
 
+    getByCourseAndStudent(courseId: number, studentUsername: string): Observable<any> {
+        return this.http.get(this.path + "/by-course-student?courseId=" + courseId + "&studentUsername=" + studentUsername, { observe: 'response' });
+    }
+
     createNewExam(exam: any): Observable<any> {
         return this.http.post(this.path, exam);
     }
@@ -36,5 +40,9 @@ export class ExamService {
 
     setExamDate(id: number, year: number, month: number, day: number) {
         return this.http.post(this.path + "/exam-date" + "/" + id + "/" + year + "/" + month + "/" + day, null);
+    }
+
+    applyForExam(studentUsername: string, examId: number): Observable<any> {
+        return this.http.post(this.path + "/apply?studentUsername=" + studentUsername + "&examId=" + examId, null);
     }
 }
