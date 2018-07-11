@@ -130,7 +130,7 @@ const routes: Routes = [
   ],
   providers: [UserService, DepartmentService, AuthorizationService, TokenInterceptorService,
     JwtInterceptorService, PreExamObligationRecordsService, PreExamOTypeService, PreExamObligationervice, CourseService,
-     ExamService,ProfessorTypeService ,PaymentsService,ExamService,ExamRecordsService, StudentPaymentsService ,{
+    ExamService, ProfessorTypeService, PaymentsService, ExamService, ExamRecordsService, StudentPaymentsService, {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
