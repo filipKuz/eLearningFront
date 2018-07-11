@@ -1,9 +1,11 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../user/user.service';
 import { UserProfileService } from './user-profile.service';
 import { RoleService } from '../shared/role.service';
 import { NgForm } from '@angular/forms';
+import { AuthorizationService } from '../authorization/authorization.service';
+import { EdocumentService } from '../edocuments/edocument.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -24,9 +26,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   model: any = {};
   isUnique: boolean = true;
   usernameForCheck: string;
-  
+
   temp1: string;
-  temp2:string;
+  temp2: string;
 
   newPass: string;
   repeatedPass: string;
@@ -36,27 +38,39 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   showAlert: boolean = false;
   showMessage: boolean = false;
   isSuccessfull: boolean = false;
+  isUserLoggedInByUN: boolean = false;
+
+  isImage: boolean = true;
 
   dateOfBirth: string;
 
   constructor(private route: ActivatedRoute,
     private userService: UserService,
     private userProfileService: UserProfileService,
-    private roleService: RoleService) {
+    private roleService: RoleService,
+    private auth: AuthorizationService,
+    private eDocumentService: EdocumentService) {
+      
   }
 
-  userId:number = 1;
+  userId: number = 1;
   courseId: number = 1;
 
   ngOnInit() {
     this.getRoles();
+    this.getProfileById();
+    this.isUserLoggedInByUsername();
+  }
+
+  getProfileById() {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
       this.userService.getUserById(this.id).subscribe(
         (response: any) => [this.user = response,
-          this.usernameForCheck = response.username,
-          this.dateOfBirth = response.dateOfBirth,
-          this.user.dateOfBirth = this.transformFormattedDate(response.dateOfBirth)],
+        this.usernameForCheck = response.username,
+        this.dateOfBirth = response.dateOfBirth,
+        this.user.dateOfBirth = this.transformFormattedDate(response.dateOfBirth),
+        this.getProfilePicture()],
         error => console.log(error)
       );
     });
@@ -87,16 +101,19 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     );
   }
 
+  imagePath: string = "";
+
   fileChange(event) {
     let eventObj: MSInputMethodContext = <MSInputMethodContext>event;
     let target: HTMLInputElement = <HTMLInputElement>eventObj.target;
     let files: FileList = target.files;
     this.file = files[0];
-    this.userProfileService.uploadImage(this.file).subscribe(
-      response => this.user.imagePath = response,
+    this.eDocumentService.uploadImage(this.file, this.user.username).subscribe(
+      response =>
+        [this.user.imagePath = response, this.getProfilePicture()],
+
       error => console.log(error)
     );
-    console.log(this.user);
   }
 
   getRoles() {
@@ -122,9 +139,35 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   changePassword() {
     this.userProfileService.editPassword(this.oldPass, this.newPass, this.repeatedPass, this.id)
       .subscribe(
-        response => {this.messagge = response, this.showAlert = !this.showAlert, this.passEditForm.resetForm(), this.showMessage = true},
+        response => { this.messagge = response, this.showAlert = !this.showAlert, this.passEditForm.resetForm(), this.showMessage = true },
         error => console.log(error)
       );
+  }
+
+  isUserLoggedInByUsername() {
+    this.userProfileService.isUserLoggedInByUsername(this.id)
+      .subscribe(
+        response => this.isUserLoggedInByUN = response,
+        error => console.log(error)
+      );
+  }
+
+  isUserAdminAndLoggedInByUsername() {
+    if (this.auth.getRoles(this.auth.getToken()).includes("ROLE_ADMIN") || this.isUserLoggedInByUN) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //src od img taga popuniti iz ove fje
+  nuxeoImagePath: string = "";
+  getProfilePicture() {
+    this.eDocumentService.getNuxeoResourceById(this.user.imagePath)
+      .subscribe(
+        response => this.nuxeoImagePath = response.properties['file:content'].data,
+        error => console.log(error)
+      )
   }
 
 

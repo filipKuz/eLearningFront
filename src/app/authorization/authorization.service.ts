@@ -20,9 +20,7 @@ export class AuthorizationService {
     login(userName: string, userPassword: string): Observable<boolean> {
         return this.http.post(this.authUrl, JSON.stringify({ username: userName, password: userPassword }), { observe: 'response' })
             .map((response: HttpResponse<any>) => {
-                console.log(response);
                 let token = response.headers.has("Authorization");
-                console.log("token: " + token);
                 if (token) {
                     localStorage.setItem('currentUser', JSON.stringify({ userName: userName, token: response.headers.get('Authorization') }));
                     return true;
@@ -64,5 +62,13 @@ export class AuthorizationService {
         var token: string = this.getToken();
         return token && token.length > 0;
     }
+
+    getRoles(token:string){
+        let jwtData = token.split('.')[1];
+        let decodedJwtJsonData = window.atob(jwtData);
+        let decodedJwtData = JSON.parse(decodedJwtJsonData);
+        return decodedJwtData.roles||[];
+    }
+    
 
 }

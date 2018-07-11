@@ -1,30 +1,21 @@
-import { Component } from '@angular/core';
-import { AuthorizationService } from './authorization/authorization.service';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { DataService } from './shared/data.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app';
 
-  constructor(private auth: AuthorizationService,
-              private route: Router) {
-                this.isLogged();
+  message: boolean;
+
+  constructor(private data: DataService) {
   }
 
-  isLoggedIn: boolean = false;
-
-  isLogged() {
-    this.isLoggedIn = this.auth.isLoggedIn();
-  }
-
-  logOut() {
-    this.auth.logout();
-    this.isLoggedIn = false;
-    this.route.navigate(['/login']);
+  ngOnInit() {
+    this.data.currentMessage.subscribe(message => this.message = message)
   }
 
 }

@@ -12,10 +12,10 @@ export class UserProfileService {
 
   private headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-  uploadImage(file: any) {
+  uploadImage(file: any, username:string, isImage: boolean) {
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
-    return this.http.post(this.path + "/upload", formData, { responseType: 'text' });
+    return this.http.post(this.path + "/upload" + "/" + username + "/" + isImage, formData, { responseType: 'text' });
   }
 
   putUser(id: number, user: any): Observable<any> {
@@ -28,5 +28,8 @@ export class UserProfileService {
       { headers: this.headers, responseType: 'text' });
   }
 
+  isUserLoggedInByUsername(id: number): Observable<any> {
+    return this.http.get(this.path + "/is-user-logged-by-username/" + id);
+  }
 
 }

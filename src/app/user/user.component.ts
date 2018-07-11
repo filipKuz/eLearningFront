@@ -20,7 +20,8 @@ export class UserComponent implements OnInit {
   professorTypes = [];
   newUser = {
     username: "",
-    dateOfBirth: ""
+    dateOfBirth: "",
+    active: true
   };
 
   showDialog: boolean = false;
@@ -77,7 +78,7 @@ export class UserComponent implements OnInit {
 
   isUsernameUnique() {
     if (this.newUser.username.length > 0) {
-      this.userService.isUsernameUnique(this.newUser.username, 'add', '').subscribe(
+      this.userService.isUsernameUnique(this.newUser.username, 'add', '-').subscribe(
         response => this.isUnique = response,
         error => console.log(error)
       );
@@ -92,6 +93,7 @@ export class UserComponent implements OnInit {
       this.model.day = "0" + this.model.day;
     }
     this.newUser.dateOfBirth = this.model.year + "-" + this.model.month + "-" + this.model.day;
+    this.newUser.active = true;
     this.userService.postNewUser(this.newUser).subscribe(
       response => [this.users.push(response), this.resetAddForm()],
       error => console.log(error)

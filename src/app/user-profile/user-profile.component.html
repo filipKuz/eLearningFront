@@ -5,10 +5,10 @@
                 <li class="nav-item">
                     <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
                 </li>
-                <li class="nav-item">
-                    <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
+                <li class="nav-item" [style.display]="isUserAdminAndLoggedInByUsername() ? null : 'none'">
+                    <a class="hidden" href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" [style.display]="isUserLoggedInByUN ? null : 'none'">
                     <a href="" data-target="#psw" data-toggle="tab" class="nav-link">Change password</a>
                 </li>
             </ul>
@@ -94,7 +94,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="tab-pane" id="edit">
+                <div class="tab-pane hide" id="edit">
                     <form role="form" #f="ngForm" (ngSubmit)="userEdit()">
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">First name</label>
@@ -187,19 +187,24 @@
             </div>
         </div>
         <div class="col-lg-4 order-lg-1 text-center">
-            <img src="assets/img/{{user.imagePath}}" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+            <img src="{{nuxeoImagePath}}" class="mx-auto img-fluid img-circle d-block"
+             onerror="this.src='assets/img/loading.gif'">
             <h6 class="mt-2">Upload a different photo</h6>
-            <label class="btn btn-success cursor-pointer" style="width:75px;">
-                Browse
-                <input type="file" id="file" class="custom-file-input cursor-pointer" (change)="fileChange($event)">
+            <label class="btn btn-success cursor-pointer" style="width:75px;" [style.display]="isUserAdminAndLoggedInByUsername() ? null : 'none'">
+                Browse <input type="file" id="file" class="custom-file-input cursor-pointer" (change)="fileChange($event); isImage=true;">
             </label>
         </div>
     </div>
     <app-student-pre-exam-obligation [(userId)]="userId" [(courseId)]="courseId"></app-student-pre-exam-obligation>
     <app-professor-pre-exam-obligation [(userId)]="userId" [(courseId)]="courseId"></app-professor-pre-exam-obligation>
     
+<<<<<<< HEAD
     <app-professor-exam-records [(courseId)]="courseId"></app-professor-exam-records>
     <!--
+=======
+    <!-- <app-professor-exam-records [(courseId)]="courseId"></app-professor-exam-records> -->
+    
+>>>>>>> 7f4b07ba0e04db01107c6bf9ef97dced5194ae96
     <app-student-course [(userId)]="userId" [(courseId)]="courseId"></app-student-course>
     <div *ngIf="user.roleId == 3">
         <app-student-payments [(userId)]="userId"></app-student-payments>

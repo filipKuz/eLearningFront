@@ -32,6 +32,11 @@ import { EdocumentsComponent } from './edocuments/edocuments.component';
 import { EdocumentService } from './edocuments/edocument.service';
 import { StudentCourseComponent } from './student-course/student-course.component';
 import { ProfessorCourseComponent } from './professor-course/professor-course.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { DataService } from './shared/data.service';
+import { AdminGuard } from './guard/admin.guard';
+import { AllDocumentsComponent } from './all-documents/all-documents.component';
+import { AllDocumentsService } from './all-documents/all-documents.service';
 import { ExamService } from './shared/exam.service';
 import { ProfessorTypeComponent } from './professor-type/professor-type.component';
 import { ProfessorTypeService } from './professor-type/professor_type.service';
@@ -57,7 +62,12 @@ const routes: Routes = [
   {
     path: 'users',
     component: UserComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'all-documents',
+    component: AllDocumentsComponent,
+    canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'profile/:id',
@@ -65,7 +75,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'documents',
+    path: 'documents/:id',
     component: EdocumentsComponent,
     canActivate: [AuthGuard]
   },
@@ -115,6 +125,8 @@ const routes: Routes = [
     EdocumentsComponent,
     StudentCourseComponent,
     ProfessorCourseComponent,
+    NavigationComponent,
+    AllDocumentsComponent,
     ProfessorTypeComponent,
     PaymentsComponent,
     StudentPaymentsComponent,
@@ -130,7 +142,7 @@ const routes: Routes = [
   ],
   providers: [UserService, DepartmentService, AuthorizationService, TokenInterceptorService,
     JwtInterceptorService, PreExamObligationRecordsService, PreExamOTypeService, PreExamObligationervice, CourseService,
-     ExamService,ProfessorTypeService ,PaymentsService,ExamService,ExamRecordsService, StudentPaymentsService ,{
+    ExamService, ProfessorTypeService, PaymentsService, ExamService, ExamRecordsService, StudentPaymentsService, {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
@@ -138,7 +150,7 @@ const routes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptorService,
       multi: true
-    }, RoleService, UserProfileService, AuthGuard, EdocumentService
+    }, RoleService, UserProfileService, AuthGuard, EdocumentService, DataService, AdminGuard,AllDocumentsService
   ],
   bootstrap: [AppComponent]
 })
