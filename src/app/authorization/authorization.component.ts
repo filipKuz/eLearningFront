@@ -40,12 +40,11 @@ export class AuthorizationComponent implements OnInit {
         if (result) {
           this.messageToNavLoginSuccess();
           this.getIdOfLoggedUser();
-          
+          this.changeUserName(this.loginData.userName);
         }
       }, (error: Error) => {
         if (error.toString() === 'Ilegal login') {
           this.wrongUsernameOrPass = true;
-          console.log(error);
         } else {
           Observable.throw(error);
         }
@@ -54,5 +53,9 @@ export class AuthorizationComponent implements OnInit {
 
   messageToNavLoginSuccess() {
     this.data.changeMessage(true);
+  }
+
+  changeUserName(username: string) {
+    this.data.changeUsername(username);
   }
 }

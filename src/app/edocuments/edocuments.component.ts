@@ -23,11 +23,13 @@ export class EdocumentsComponent implements OnInit {
   }
 
   getDocumentsByUserId() {
+    this.nuxeoResponse = []
     this.sub = this.route.params.subscribe(params => {
     this.id = +params['id']; // (+) converts string 'id' to a number
     this.edocService.getDocumentsByUserId(this.id).subscribe(
         (response: any) => [this.documents = response,
-        this.documents.forEach(element => {
+        response.forEach(element => {
+          console.log("novo  " + element.nuxeoId)
           this.getDocument(element.nuxeoId);
         })],
         error => console.log(error)
@@ -43,7 +45,7 @@ export class EdocumentsComponent implements OnInit {
     this.file = files[0];
     this.edocService.uploadDocument(this.file, this.id).subscribe(
       response =>
-        [this.documentNuxeoId = response, this.getDocumentsByUserId()],
+        this.getDocumentsByUserId(),
 
       error => console.log(error)
     );
@@ -54,7 +56,7 @@ export class EdocumentsComponent implements OnInit {
   getDocument(nuxeoId: string) {
     this.edocService.getNuxeoResourceById(nuxeoId)
       .subscribe(
-        response => [this.nuxeoResponse.push(response), console.log(response)],
+        response => this.nuxeoResponse.push(response),
         error => console.log(error)
       )
   }

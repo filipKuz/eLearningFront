@@ -37,6 +37,14 @@ export class NavigationComponent implements OnInit {
     }
   }
 
+  isStudent() {
+    if (this.auth.getRoles(this.auth.getToken()).includes("ROLE_STUDENT")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   getIdOfLoggedUser() {
     if (this.isLoggedIn) {
       this.userService.getUserByUsername(this.userName).subscribe(

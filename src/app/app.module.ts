@@ -48,6 +48,7 @@ import { CourseComponent } from './course/course.component';
 import { CourseService } from './course/course.service';
 import { ProfessorExamRecordsComponent } from './professor-exam-records/professor-exam-records.component';
 import { ExamRecordsService } from './shared/examRecordsService';
+import { ProfGuard } from './guard/prof.guard';
 
 const routes: Routes = [
   /* {
@@ -67,7 +68,7 @@ const routes: Routes = [
   {
     path: 'all-documents',
     component: AllDocumentsComponent,
-    canActivate: [AuthGuard, AdminGuard]
+    canActivate: [AuthGuard, AdminGuard ]
   },
   {
     path: 'profile/:id',
@@ -81,7 +82,8 @@ const routes: Routes = [
   },
   {
     path: 'preExamOTypes',
-    component: PreExamOTypeComponent
+    component: PreExamOTypeComponent,
+    canActivate: [AuthGuard, AdminGuard || ProfGuard]
   },
   {
     path: "professorCourses",
@@ -104,8 +106,9 @@ const routes: Routes = [
     component: DepartmentComponent
   },
   {
-    path: "courses",
-    component: CourseComponent
+    path: "course",
+    component: CourseComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
@@ -142,7 +145,7 @@ const routes: Routes = [
   ],
   providers: [UserService, DepartmentService, AuthorizationService, TokenInterceptorService,
     JwtInterceptorService, PreExamObligationRecordsService, PreExamOTypeService, PreExamObligationervice, CourseService,
-    ExamService, ProfessorTypeService, PaymentsService, ExamService, ExamRecordsService, StudentPaymentsService, {
+    ExamService, ProfessorTypeService, PaymentsService, ExamService, ExamRecordsService, StudentPaymentsService, ProfGuard, {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
