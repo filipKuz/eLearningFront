@@ -3,22 +3,34 @@ import { CourseService } from './course.service';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../user/user.service';
 import { DepartmentService } from '../department/department.service';
+import { AuthorizationService } from '../authorization/authorization.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-courses',
+  selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit {
 
-  constructor(private courseService: CourseService, private userService: UserService, private departmentService: DepartmentService) { }
+  constructor(private courseService: CourseService, private userService: UserService, private departmentService: DepartmentService, private autServise: AuthorizationService
+      , private router: Router) { }
 
+  roles = [];
   courses = [];
+  coursesProf= [];
+  coursesStudent= [];
   students = [];
   departments = [{
     departmentId: 1,
     name: "Softverske i informacione tehnologije"
   }];
+  username = "";
+  isAdmin = false;
+  isProfessor = false;
+  isStudent = false;
+  courseId = 0;
+
 
   showDialog: boolean = false;
 
@@ -33,17 +45,70 @@ export class CourseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllCourses();
+    this.getRoles();
+    this.populateRoles();
+
+    if(this.isStudent){
+      this.getAllCoursesByStudent();
+    }
+    if(this.isAdmin){
+      this.getAllCourses();
+    }
+    if(this.isProfessor){
+      this.getAllCoursesByProfessor();
+    }
+    
     this.getAllDepartments();
     this.getAllStudents();
+    this.username = this.autServise.getUser();
+    
+    console.log(this.isAdmin);
+    console.log(this.isProfessor);
+    console.log(this.isStudent);
   }
 
+  getRoles(){
+   this.roles = this.autServise.getRoles(this.autServise.getToken()).split(", ");
+  }
+
+  populateRoles(){
+    if(this.roles.includes('ROLE_ADMIN')) {
+      this.isAdmin = true;
+    }
+    if(this.roles.includes("ROLE_PROFESSOR")) {
+      this.isProfessor = true;
+    }
+    if(this.roles.includes("ROLE_STUDENT")) {
+      this.isStudent = true;
+    }
+  }
+  
   getAllCourses() {
     this.courseService.getAll().subscribe(
       (response) => (this.courses = response.body),
       (error) => console.log(error)
     );
   }
+  
+  changeId(id: number){
+    this.courseId = id;
+  }
+  
+  getAllCoursesByProfessor() {
+    this.courseService.getAllByProfessor("fk").subscribe(
+      (response) => (this.coursesProf = response.body),
+      (error) => console.log(error)
+    );
+  }
+
+  getAllCoursesByStudent() {
+    this.courseService.getAllByStudent("un").subscribe(
+      (response) => (this.coursesStudent = response.body),
+      (error) => console.log(error)
+    );
+  }
+
+  
 
   getAllStudents() {
     this.userService.getAll(0, 99, "userId,asc", "", "").subscribe(

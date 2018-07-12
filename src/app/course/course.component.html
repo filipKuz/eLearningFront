@@ -1,5 +1,5 @@
 <div class="container-fluid pt-5">
-  <table class="table table-hover">
+  <table class="table table-hover" *ngIf="isAdmin">
     <thead class="thead-light">
       <tr>
         <th>No.</th>
@@ -29,10 +29,59 @@
     </tbody>
   </table>
   <button class="btn btn-primary hand pull-right" (click)="showDialog = !showDialog;resetAddForm();">New course</button>
+  <br>
+  <br>
+  <table class="table table-hover" *ngIf="isProfessor">
+    <thead class="thead-light">
+      <tr>
+        <th>No.</th>
+        <th>Name
+          <i class="fa fa-fw fa-sort hand"></i>
+        </th>
+        <th>Active
+          <i class="fa fa-fw fa-sort hand"></i>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of coursesProf; let i = index">
+        <td>{{i + 1}}</td>
+        <td><a class="hand" [routerLink]="['/courses']" (onClick)="changeId(c.courseId)" title="Go to user profile."> {{c.name}} </a></td>
+        <td>{{c.active}}</td>
+        
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-hover" *ngIf="isStudent">
+    <thead class="thead-light">
+      <tr>
+        <th>No.</th>
+        <th>Name
+          <i class="fa fa-fw fa-sort hand"></i>
+        </th>
+        <th>Active
+          <i class="fa fa-fw fa-sort hand"></i>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of coursesStudent; let i = index">
+        <td>{{i + 1}}</td>
+        <td><a class="hand" [routerLink]="['/courses']" (click)="changeId(c.courseId)"> {{c.name}} </a></td>
+        <td>{{c.active}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
   <!-- <button class="btn btn-primary hand pull-right" (click)="showDialog = !showDialog;resetAddForm();getRoles();">New user</button> -->
   <app-pagination class=""></app-pagination>
   <div>
 
+  <!--
+  <app-courses [(username)]="username" [(courseId)]="courseId"></app-courses>
+    -->
     <app-dialog [(visible)]="showDialog">
       <h4>Add Course</h4>
       <hr>

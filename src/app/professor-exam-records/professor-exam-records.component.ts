@@ -53,19 +53,16 @@ export class ProfessorExamRecordsComponent implements OnInit {
       (error) => console.log(error)
     );
   }
-
   getTypes() {
     this.typeService.getAll().subscribe(
       (response) => (this.types = response.body),
       (error) => console.log(error)
     );
   }
-
   onRemove(id) {
     this.showRemoveDialog = !this.showRemoveDialog;
     this.newPreExamObligation.preExamOId = id;
   }
-
   onRemoveConfirmed() {
     this.preExamObligationService.changeActive(this.newPreExamObligation.preExamOId).subscribe(
       response => [this.getPreExamObligationByCourseId(this.courseId)],
@@ -73,7 +70,6 @@ export class ProfessorExamRecordsComponent implements OnInit {
     );
     this.showRemoveDialog = !this.showRemoveDialog;
   }
-
   onGetById(id: number) {
     this.preExamObligationService.getOne(id)
       .subscribe(
@@ -81,13 +77,11 @@ export class ProfessorExamRecordsComponent implements OnInit {
         (error) => console.log(error)
       );
   }
-
   onPopulateJsonType(name: string, maxPoints: number, preExamOTypeId: number) {
     this.newPreExamObligation.name = name;
     this.newPreExamObligation.preExamOTypeId = preExamOTypeId;
     this.newPreExamObligation.maxPoints = maxPoints;
   }
-
   onEditPEO(id) {
     this.resetEditForm();
     this.getTypes();
@@ -96,7 +90,6 @@ export class ProfessorExamRecordsComponent implements OnInit {
     this.onGetById(this.newPreExamObligation.preExamOId);
     this.showEditDialog = !this.showEditDialog;
   }
-
   onAddObligation() {
     this.resetAddForm();
     this.getTypes();
@@ -105,7 +98,6 @@ export class ProfessorExamRecordsComponent implements OnInit {
     this.actionForModal = "add";
     this.showDialog = !this.showDialog;
   }
-
   onGrade(id) {
     this.resetGradeObligationForm();
     this.getobligationsRecords(id, this.sortParam , this.sortDirection);
@@ -113,38 +105,32 @@ export class ProfessorExamRecordsComponent implements OnInit {
     this.actionForModal = "grade";
     this.showGradeDialog = !this.showGradeDialog;
   }
-
   onPostGrade(){
     this.recordsServoce.gradeRecords(this.preExamObligationsRecords);
   }
-
   onSetDate(id) {
     this.resetSetObligationDateForm();
     this.newPreExamObligation.preExamOId = id;
     this.actionForModal = "setDate";
     this.showSetDateDialog = !this.showSetDateDialog;
   }
-
   onPutObligation() {
     this.preExamObligationService.changeObligation(this.newPreExamObligation).subscribe(
       response => [this.getPreExamObligationByCourseId(this.courseId), this.resetEditForm()],
       error => console.log(error)
     );
   }
-
   onPostNewType() {
     this.preExamObligationService.postNewObligation(this.newPreExamObligation).subscribe(
       response => [this.preExamObligations.push(response), this.resetAddForm()],
       error => console.log(error)
     );
   }
-
   onSetNewDate(){
     this.recordsServoce.setObligationDate(this.newPreExamObligation.preExamOId, this.model.year, this.model.month, this.model.day).subscribe(
       error => console.log(error)
     );
   }
-
   onSubmit() {
     if (this.actionForModal === 'edit') {
       this.onPutObligation();
@@ -166,7 +152,6 @@ export class ProfessorExamRecordsComponent implements OnInit {
       this.showGradeDialog = !this.showGradeDialog;
     }
   }
-
   onSort(sortParam: string) {
     this.isAscending = !this.isAscending;
     this.isAscending ? this.sortDirection = "asc" : this.sortDirection = "desc";
@@ -174,22 +159,17 @@ export class ProfessorExamRecordsComponent implements OnInit {
     this.onGrade(this.newPreExamObligation.preExamOId);
     this.showGradeDialog =! this.showGradeDialog;
   }
-
   resetAddForm() {
     this.addObligationForm.resetForm();
   }
-
   resetEditForm() {
     this.editObligationForm.resetForm();
   }
-
   resetSetObligationDateForm() {
     this.setObligationDateForm.resetForm();
   }
-
   resetGradeObligationForm() {
     this.gradeObligationForm.resetForm();
   }
-
   */
 }

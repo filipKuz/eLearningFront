@@ -15,6 +15,13 @@ export class CourseService {
         return this.http.get(this.path, { observe: 'response' })
     }
 
+    getAllByStudent(username: string): Observable<any>{
+        return this.http.get(this.path + "/student/" + username, {observe: 'response'} );
+    }
+
+    getAllByProfessor(username: string): Observable<any>{
+        return this.http.get(this.path + "/professor/" + username, {observe: 'response'} );
+    }
 
     getOne(id: number): Observable<any> {
         return this.http.get(this.path + "/" + id, { observe: 'response' });

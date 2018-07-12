@@ -49,6 +49,7 @@ import { CourseService } from './course/course.service';
 import { ProfessorExamRecordsComponent } from './professor-exam-records/professor-exam-records.component';
 import { ExamRecordsService } from './shared/examRecordsService';
 import { ProfGuard } from './guard/prof.guard';
+import { CoursesComponent } from './courses/courses.component';
 
 const routes: Routes = [
   /* {
@@ -103,11 +104,17 @@ const routes: Routes = [
   },
   {
     path: "department",
-    component: DepartmentComponent
+    component: DepartmentComponent,
+    canActivate: [AuthGuard , AdminGuard]
   },
   {
     path: "course",
     component: CourseComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "courses",
+    component: CoursesComponent,
     canActivate: [AuthGuard]
   }
 ];
@@ -134,7 +141,8 @@ const routes: Routes = [
     PaymentsComponent,
     StudentPaymentsComponent,
     ProfessorExamRecordsComponent,
-    CourseComponent
+    CourseComponent,
+    CoursesComponent
   ],
   imports: [
     BrowserModule,
