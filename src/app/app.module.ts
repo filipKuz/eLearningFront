@@ -113,7 +113,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: "courses",
+    path: "courses/:id",
     component: CoursesComponent,
     canActivate: [AuthGuard]
   }

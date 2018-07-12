@@ -25,11 +25,11 @@ export class CourseComponent implements OnInit {
     departmentId: 1,
     name: "Softverske i informacione tehnologije"
   }];
-  username = "";
+  username = ""; //ovo
   isAdmin = false;
   isProfessor = false;
   isStudent = false;
-  courseId = 0;
+  courseId = 0; //ovo
 
 
   showDialog: boolean = false;
@@ -95,14 +95,14 @@ export class CourseComponent implements OnInit {
   }
   
   getAllCoursesByProfessor() {
-    this.courseService.getAllByProfessor("fk").subscribe(
+    this.courseService.getAllByProfessor(this.autServise.getUser()).subscribe(
       (response) => (this.coursesProf = response.body),
       (error) => console.log(error)
     );
   }
 
   getAllCoursesByStudent() {
-    this.courseService.getAllByStudent("un").subscribe(
+    this.courseService.getAllByStudent(this.autServise.getUser()).subscribe(
       (response) => (this.coursesStudent = response.body),
       (error) => console.log(error)
     );

@@ -19,5 +19,4 @@ export class DataService {
   changeUsername(username: string) {
     this.usernameMessage.next(username);
   }
-
 }

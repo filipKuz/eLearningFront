@@ -19,8 +19,8 @@ export class StudentCourseComponent implements OnInit {
   showApplyDialog = false;
   examId: number;
 
-  @Input() userId: number;
-  @Input() courseId: number;
+  @Input() username: string;
+  @Input("courseId") courseId: number;
 
   ngOnInit() {
     this.studentUsername = this._authService.getUser();

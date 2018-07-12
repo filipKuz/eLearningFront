@@ -8,17 +8,11 @@
           <li class="nav-item">
               <a class="nav-link" routerLink="/users" [style.display]="canUserSeeThis() ? null : 'none'" routerLinkActive="active">Users</a>
           </li>
-          
-          <li class="nav-item">
-              <a class="nav-link" routerLink="/all-documents" routerLinkActive="active">Documents</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/course" routerLinkActive="active">Courses</a>
-          </li>
 
           <li class="nav-item">
             <a class="nav-link" routerLink="/department" routerLinkActive="active">Departments</a>
+              <a class="nav-link" routerLink="/all-documents" [style.display]="canUserSeeThis() ? null : 'none'" routerLinkActive="active">Documents</a>
+            <a class="nav-link" routerLink="/course" routerLinkActive="active">Curses</a>
           </li>
 
           <li class="nav-item">
@@ -36,7 +30,7 @@
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item"  [routerLink]="['/profile', userId]">My profile</a>
-                  <a class="dropdown-item" [routerLink]="['/documents', userId]">My documents</a>
+                  <a class="dropdown-item" [routerLink]="['/documents', userId]" [style.display]="isStudent() ? null : 'none'">My documents</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item hand" (click)="logOut()">Log out</a>
               </div>

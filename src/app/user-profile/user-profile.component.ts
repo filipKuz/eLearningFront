@@ -160,6 +160,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     }
   }
 
+  isUserAdmin() {
+    if (this.auth.getRoles(this.auth.getToken()).includes("ROLE_ADMIN")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   //src od img taga popuniti iz ove fje
   nuxeoImagePath: string = "";
   getProfilePicture() {

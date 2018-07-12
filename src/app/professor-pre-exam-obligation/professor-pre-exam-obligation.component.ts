@@ -39,7 +39,7 @@ export class ProfessorPreExamObligationComponent implements OnInit {
   model;
 
   @Input() userId: number;
-  @Input() courseId: number;
+  @Input("courseId") courseId: number;
 
   @ViewChild('f') addObligationForm: NgForm;
   @ViewChild('fe') editObligationForm: NgForm;
@@ -125,7 +125,7 @@ export class ProfessorPreExamObligationComponent implements OnInit {
     this.showGradeDialog = !this.showGradeDialog;
   }
 
-  onPostGrade(){
+  onPostGrade() {
     this.recordsServoce.gradeRecords(this.preExamObligationsRecords)
       .subscribe(
         response => console.log(response),
@@ -154,7 +154,7 @@ export class ProfessorPreExamObligationComponent implements OnInit {
     );
   }
 
-  onSetNewDate(){
+  onSetNewDate() {
     this.recordsServoce.setObligationDate(this.newPreExamObligation.preExamOId, this.model.year, this.model.month, this.model.day).subscribe(
       error => console.log(error)
     );

@@ -46,7 +46,7 @@
     <tbody>
       <tr *ngFor="let c of coursesProf; let i = index">
         <td>{{i + 1}}</td>
-        <td><a class="hand" [routerLink]="['/courses']" (onClick)="changeId(c.courseId)" title="Go to user profile."> {{c.name}} </a></td>
+        <td><a class="hand" [routerLink]="['/courses', c.courseId]" (click)="changeId(c.courseId)"> {{c.name}} </a></td>
         <td>{{c.active}}</td>
         
       </tr>
@@ -68,7 +68,7 @@
     <tbody>
       <tr *ngFor="let c of coursesStudent; let i = index">
         <td>{{i + 1}}</td>
-        <td><a class="hand" [routerLink]="['/courses']" (click)="changeId(c.courseId)"> {{c.name}} </a></td>
+        <td><a class="hand" [routerLink]="['/courses', c.courseId]" (click)="changeId(c.courseId)"> {{c.name}} </a></td>
         <td>{{c.active}}</td>
       </tr>
     </tbody>
@@ -141,5 +141,7 @@
           <button type="button" (click)="showDialog = !showDialog" class="btn">Close</button>
         </div>
       </form>
+
+      <app-courses [(username)]="username" [(courseId)]="courseId"></app-courses>
 
     </app-dialog>

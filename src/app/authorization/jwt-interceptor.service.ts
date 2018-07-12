@@ -18,9 +18,9 @@ export class JwtInterceptorService implements HttpInterceptor {
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
         if (err.status === 401) {
-          this.router.navigate(['/login']);
+          console.log("Unauthorized");
         } else if (err.status === 403) {
-          alert("Unauthorized!");
+          console.log("403");
         }
       }
     });

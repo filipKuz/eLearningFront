@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PreExamObligationRecordsService } from './pre-exam-obligation-records.service';
+import { AuthorizationService } from '../authorization/authorization.service';
 
 @Component({
   selector: 'app-student-pre-exam-obligation',
@@ -8,20 +9,20 @@ import { PreExamObligationRecordsService } from './pre-exam-obligation-records.s
 })
 export class StudentPreExamObligationComponent implements OnInit {
 
-  constructor(private preExamObligationRecordsService: PreExamObligationRecordsService) { }
+  constructor(private preExamObligationRecordsService: PreExamObligationRecordsService,private auth: AuthorizationService) { }
 
-  @Input() userId: number;
   @Input() courseId: number;
   total: number = 0;
   totalMax: number = 0;
   preExamORecs=[];
 
   ngOnInit() {
-    this.getPreExamORecByUserIdAndCourseId(this.userId,this.courseId);
+    alert(this.courseId)
+    this.getPreExamORecByUserIdAndCourseId(this.courseId);
   }
 
-  getPreExamORecByUserIdAndCourseId(userId,courseId){
-    this.preExamObligationRecordsService.getAllByStudentAndCourse(this.userId,this.courseId).subscribe(
+  getPreExamORecByUserIdAndCourseId(courseId){
+    this.preExamObligationRecordsService.getAllByStudentAndCourse(this.auth.getUser(),this.courseId).subscribe(
       (response) => (this.preExamORecs = response.body ,  this.onCalculateMax()),
       (error) => console.log(error)
     );

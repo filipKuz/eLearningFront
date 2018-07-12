@@ -1,8 +1,5 @@
-  <!--
-  <app-student-pre-exam-obligation [(username)]="username" [(courseId)]="id"></app-student-pre-exam-obligation>
-    <app-professor-pre-exam-obligation [(username)]="username" [(courseId)]="id"></app-professor-pre-exam-obligation>
-    
-    <app-professor-exam-records [(courseId)]="id"></app-professor-exam-records>
-    
-    <app-student-course [(username)]="username" [(courseId)]="id"></app-student-course>
--->
+<app-student-pre-exam-obligation *ngIf="isUserStudent()" [courseId]="id"></app-student-pre-exam-obligation>
+<app-professor-pre-exam-obligation *ngIf="isUserProf()" [courseId]="id"></app-professor-pre-exam-obligation>
+<app-professor-exam-records *ngIf="isUserProf()" [courseId]="id"></app-professor-exam-records>
+<app-professor-course *ngIf="isUserProf()" [courseId]="id"></app-professor-course>
+<app-student-course *ngIf="isUserStudent()"  [(username)]="username" [courseId]="id"></app-student-course>

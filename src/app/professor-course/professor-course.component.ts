@@ -29,8 +29,7 @@ export class ProfessorCourseComponent implements OnInit {
   model;
   newDate: string;
 
-  // @Input() courseId: number;
-  courseId = 1;
+  @Input('courseId') courseId: number;
 
   @ViewChild('addForm') addForm: NgForm;
   @ViewChild('editForm') editForm: NgForm;
@@ -66,7 +65,6 @@ export class ProfessorCourseComponent implements OnInit {
   onAddExam() {
     this.resetAddForm();
     this.getExamsByProfessorAndCourse(this.professorUsername, this.courseId);
-    this.newExam.examId = null;
     this.newExam.active = true;
     this.actionForModal = "add";
     this.showDialog = !this.showDialog;

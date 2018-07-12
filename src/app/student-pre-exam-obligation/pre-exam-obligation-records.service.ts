@@ -15,8 +15,8 @@ export class PreExamObligationRecordsService {
         return this.http.get(this.path + "?term=" + term + "&page=" + page + "&size=" + size + "&sort=" + sortParam + "," + sortDirection, { observe: 'response' })
     }
 
-    getAllByStudentAndCourse(sId: number, cId: number): Observable<any> {
-        return this.http.get(this.path + "/student" + "/" + sId + "/" + "course" + "/" + cId, { observe: 'response' })
+    getAllByStudentAndCourse(uName: string, cId: number): Observable<any> {
+        return this.http.get(this.path + "/student" + "/" + uName + "/" + "course" + "/" + cId, { observe: 'response' })
     }
     
     getAllByPreExamObligation(id: number, sortParam: string, sortDirection: string): Observable<any> {
@@ -26,8 +26,8 @@ export class PreExamObligationRecordsService {
         return this.http.post(this.path + "/create-records" + "/" + id + "/" + year + "/" + month + "/" + day, null , { observe: 'response' })
     }
 
-    getPoints(studentId: number, courseId: number): Observable<any>{
-        return this.http.get(this.path + "/points/student/" + studentId + "/course/" + courseId, {observe: 'response'})
+    getPoints(uName: string, courseId: number): Observable<any>{
+        return this.http.get(this.path + "/points/student/" + uName + "/course/" + courseId, {observe: 'response'})
     }
 
     gradeRecords(reccords: any): Observable<any> {
