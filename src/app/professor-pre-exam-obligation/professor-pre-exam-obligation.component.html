@@ -172,8 +172,8 @@
               </td>
               
               <td class="text-center" style="vertical-align:middle">
-                <input type="checkbox" [(value)] = "r.passed" class="form-control input-md" style="width: 40px;" *ngIf="r.passed" (ng-true-value)="r.passed = $event.target.value" checked>
-                <input type="checkbox" [(value)] = "r.passed" class="form-control input-md" style="width: 40px;" *ngIf="!r.passed" (ng-true-value)="r.passed = $event.target.value"  > 
+                <input type="checkbox" [(value)] = "r.passed" class="form-control input-md" style="width: 40px;" *ngIf="r.passed" (change)="r.passed = !r.passed" checked>
+                <input type="checkbox" [(value)] = "r.passed" class="form-control input-md" style="width: 40px;" *ngIf="!r.passed" (change)="r.passed = !r.passed" > 
               </td>
               <!--
                <td>{{r.points}}</td> 

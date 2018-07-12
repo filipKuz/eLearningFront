@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ExamRecordsService } from '../shared/examRecordsService';
 import { NgForm } from '@angular/forms';
+import { PreExamObligationRecordsService } from '../student-pre-exam-obligation/pre-exam-obligation-records.service';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-professor-exam-records',
@@ -9,7 +11,7 @@ import { NgForm } from '@angular/forms';
 })
 export class ProfessorExamRecordsComponent implements OnInit {
 
-  constructor(private examRecordsService: ExamRecordsService) { }
+  constructor(private examRecordsService: ExamRecordsService, private pre: PreExamObligationRecordsService) { }
 
   examRecords = [];
 
@@ -24,13 +26,24 @@ export class ProfessorExamRecordsComponent implements OnInit {
 
   ngOnInit() {
     this.getExamRecByCourseId(this.courseId);
+    this.getPreExamPoints();
   }
 
   getExamRecByCourseId(id: number) {
     this.examRecordsService.getAllByCourse(id).subscribe(
-      (response) => (this.examRecords = response.body, console.log(response.body)),
+      (response) => (this.examRecords = response.body, this.getPreExamPoints()),
       (error) => console.log(error)
     );
+  }
+
+  getPreExamPoints(){
+    this.examRecords.forEach(element => {
+      this.pre.getPoints(element.studentId , element.courseId).subscribe(
+        (respnse) => (element.preExamPoints = respnse.body, console.log(respnse)),
+        (error) => console.log(error)
+      );
+
+    });
   }
 
   /*
