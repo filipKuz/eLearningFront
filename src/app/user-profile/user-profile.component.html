@@ -162,7 +162,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row"  [style.display]="isUserAdmin()? null : 'none'">
                             <label class="col-lg-3 col-form-label form-control-label">Roles
                                 <br>
                                 <small>
@@ -189,10 +189,12 @@
         <div class="col-lg-4 order-lg-1 text-center">
             <img src="{{nuxeoImagePath}}" class="mx-auto img-fluid img-circle d-block"
              onerror="this.src='assets/img/loading.gif'">
-            <h6 class="mt-2">Upload a different photo</h6>
-            <label class="btn btn-success cursor-pointer" style="width:75px;" [style.display]="isUserAdminAndLoggedInByUsername() ? null : 'none'">
-                Browse <input type="file" id="file" class="custom-file-input cursor-pointer" (change)="fileChange($event); isImage=true;">
-            </label>
+             <div [style.display]="isUserAdminAndLoggedInByUsername() ? null : 'none'">
+                <h6 class="mt-2">Upload a different photo</h6>
+                <label class="btn btn-success cursor-pointer" style="width:75px;">
+                    Browse <input type="file" id="file" class="custom-file-input cursor-pointer" (change)="fileChange($event)">
+                </label>
+            </div>
         </div>
     </div>
     <app-student-pre-exam-obligation [(userId)]="userId" [(courseId)]="courseId"></app-student-pre-exam-obligation>

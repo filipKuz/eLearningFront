@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class EdocumentService {
 
-  private readonly urlNuxeoPath: string = "/nuxeo/";
+  private readonly urlNuxeoPath: string = "/api/nuxeo/";
   private readonly urlDocPath: string = "/api/e-document/";
 
   constructor(private http: HttpClient) { }
