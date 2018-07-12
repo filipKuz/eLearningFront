@@ -1,7 +1,7 @@
 <div>
 <h4>Grade</h4>
       <hr>
-      <form (ngSubmit)="onSubmit()" class="form-horizontal" #fg="ngForm">
+      <form (ngSubmit)="applyGradeRecords()" class="form-horizontal" #fg="ngForm">
     
         <table class="table table-hover">
           <thead class="thead-light">
@@ -21,7 +21,7 @@
               <td>{{r.examDate}}</td>
               <td>{{r.preExamPoints}}</td>
               <td>
-                <input type="number" [(value)]="r.points" placeholder="points" class="form-control input-md" style="width: 100px;" >
+                <input type="number" min="0" (input)="r.points = $event.target.value" [(value)]="r.points" placeholder="points" class="form-control input-md" style="width: 100px;" >
               </td>
               <td>
                 {{r.grade}}

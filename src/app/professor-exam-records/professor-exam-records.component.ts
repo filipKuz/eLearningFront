@@ -15,8 +15,8 @@ export class ProfessorExamRecordsComponent implements OnInit {
 
   examRecords = [];
 
-  sortDirection: string = "asc";
-  isAscending : boolean = true;
+  sortDirection = "asc";
+  isAscending = true;
   actionForModal = "";
   sortParam = "date";
 
@@ -36,15 +36,28 @@ export class ProfessorExamRecordsComponent implements OnInit {
     );
   }
 
-  getPreExamPoints(){
+  getPreExamPoints() {
     this.examRecords.forEach(element => {
       this.pre.getPoints(element.studentId , element.courseId).subscribe(
-        (respnse) => (element.preExamPoints = respnse.body, console.log(respnse)),
+        (respnse) => (element.preExamPoints = respnse.body),
         (error) => console.log(error)
       );
-
     });
   }
+
+  onPostGrade() {
+    this.examRecordsService.gradeRecords(this.examRecords)
+      .subscribe(
+        response => (this.getExamRecByCourseId(this.courseId)),
+        error => console.log(error)
+      );
+  }
+
+  applyGradeRecords() {
+    this.onPostGrade();
+    this.getPreExamPoints();
+  }
+
 
   /*
   getobligationsRecords(id:number, sortParam: string ,  sortDirection: string){

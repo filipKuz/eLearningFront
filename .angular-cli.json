@@ -6,11 +6,7 @@
   "apps": [
     {
       "root": "src",
-<<<<<<< HEAD
-      "outDir": "C:/Users/bojan/git/eLearning/src/main/resources/static",
-=======
-      "outDir": "C:/Users/Filip/Desktop/sf/src/main/resources/static",
->>>>>>> 7f4b07ba0e04db01107c6bf9ef97dced5194ae96
+      "outDir": "F:/eLearning/src/main/resources/static",
       "assets": [
         "assets",
         "favicon.ico"

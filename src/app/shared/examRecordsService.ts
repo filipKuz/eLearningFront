@@ -19,13 +19,12 @@ export class ExamRecordsService {
         return this.http.get(this.path + "/course/" + id, { observe: 'response' });
     }
 
-    gradeRecords(reccords: any): Observable<any> {
-        console.log("test");
-        console.log(reccords);
-        return this.http.post(this.path + "/grade", reccords, { observe: 'response' });
+    gradeRecords(records: any): Observable<any> {
+        console.log(records);
+        return this.http.post(this.path + "/grade", records, { observe: 'response' });
     }
 
-    getAllByStudentAndCourse(studentUsername: string, courseId: number): Observable<any>{
+    getAllByStudentAndCourse(studentUsername: string, courseId: number): Observable<any> {
         return this.http.get(this.path + "/by-student-course?studentUsername=" + studentUsername + "&courseId=" + courseId);
     }
 }
